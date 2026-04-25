@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TryIt Educations – Website Editor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+  :root {
+    --navy:#0d1f3c; --gold:#f5a623; --teal:#00b4a0; --green:#22c55e;
+    --red:#e53e3e; --bg:#f0f4ff; --card:#fff; --border:#dde3ef;
+    --muted:#6b7280; --shadow:0 4px 18px rgba(13,31,60,0.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Nunito',sans-serif;background:var(--bg);color:var(--navy);min-height:100vh;}
+  .topbar{background:var(--navy);color:#fff;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.3);}
+  .topbar h1{font-size:1.1rem;font-weight:900;}.topbar h1 span{color:var(--gold);}
+  .topbar-btns{display:flex;gap:0.6rem;}
+  .tbtn{padding:7px 18px;border-radius:8px;font-weight:800;font-size:0.85rem;cursor:pointer;border:none;transition:transform 0.15s,opacity 0.15s;}
+  .tbtn:hover{transform:scale(1.04);}
+  .tbtn-gold{background:var(--gold);color:var(--navy);}
+  .tbtn-green{background:var(--green);color:#fff;}
+  .tbtn-red{background:var(--red);color:#fff;}
+  .container{max-width:900px;margin:2rem auto;padding:0 1.2rem 4rem;}
+  .section-card{background:var(--card);border-radius:16px;border:1.5px solid var(--border);box-shadow:var(--shadow);margin-bottom:1.5rem;overflow:hidden;}
+  .sec-header{background:var(--navy);color:#fff;padding:0.9rem 1.3rem;display:flex;align-items:center;justify-content:space-between;}
+  .sec-header h2{font-size:0.95rem;font-weight:800;}
+  .sec-header span{font-size:0.75rem;color:rgba(255,255,255,0.55);}
+  .sec-body{padding:1.2rem 1.3rem;}
+  .item-row{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.6rem;background:var(--bg);border-radius:10px;padding:0.6rem 0.8rem;border:1.5px solid var(--border);}
+  .item-row input{flex:1;border:none;background:transparent;font-family:'Nunito',sans-serif;font-size:0.88rem;color:var(--navy);font-weight:600;outline:none;}
+  .item-row input:focus{color:#000;}
+  .del-btn{background:var(--red);color:#fff;border:none;border-radius:7px;padding:4px 10px;font-size:0.78rem;font-weight:800;cursor:pointer;white-space:nowrap;transition:opacity 0.15s;}
+  .del-btn:hover{opacity:0.8;}
+  .add-row{display:flex;gap:0.6rem;margin-top:0.7rem;}
+  .add-input{flex:1;border:2px dashed var(--border);border-radius:10px;padding:0.6rem 0.9rem;font-family:'Nunito',sans-serif;font-size:0.88rem;color:var(--navy);font-weight:600;outline:none;background:#fff;transition:border-color 0.18s;}
+  .add-input:focus{border-color:var(--teal);}
+  .add-btn{background:var(--teal);color:#fff;border:none;border-radius:9px;padding:0.6rem 1.1rem;font-weight:800;font-size:0.85rem;cursor:pointer;transition:transform 0.15s;}
+  .add-btn:hover{transform:scale(1.04);}
+  .course-card-edit{background:var(--bg);border:1.5px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:0.9rem;position:relative;}
+  .course-card-edit .del-course{position:absolute;top:0.7rem;right:0.7rem;}
+  .field-row{display:flex;flex-direction:column;gap:3px;margin-bottom:0.7rem;}
+  .field-row label{font-size:0.73rem;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;}
+  .field-row input,.field-row select,.field-row textarea{border:1.5px solid var(--border);border-radius:8px;padding:7px 10px;font-family:'Nunito',sans-serif;font-size:0.88rem;color:var(--navy);font-weight:600;outline:none;background:#fff;transition:border-color 0.18s;width:100%;}
+  .field-row input:focus,.field-row select:focus,.field-row textarea:focus{border-color:var(--teal);}
+  .field-row textarea{resize:vertical;min-height:60px;}
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:0.7rem;}
+  .add-course-btn{width:100%;padding:0.7rem;background:transparent;border:2px dashed var(--teal);border-radius:10px;color:var(--teal);font-weight:800;font-size:0.88rem;cursor:pointer;transition:background 0.18s,color 0.18s;}
+  .add-course-btn:hover{background:var(--teal);color:#fff;}
+  .success-toast{position:fixed;bottom:1.5rem;right:1.5rem;background:var(--green);color:#fff;padding:0.8rem 1.4rem;border-radius:12px;font-weight:800;font-size:0.9rem;transform:translateY(100px);transition:transform 0.3s;z-index:999;box-shadow:0 4px 16px rgba(0,0,0,0.2);}
+  .success-toast.show{transform:translateY(0);}
+  .tip{background:#fffbeb;border:1.5px solid var(--gold);border-radius:10px;padding:0.7rem 1rem;font-size:0.82rem;color:#92400e;font-weight:700;margin-bottom:1rem;}
+  .badge{display:inline-block;font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:4px;text-transform:uppercase;}
+  .badge-free{background:#dcfce7;color:#15803d;}
+  .badge-paid{background:#fee2e2;color:#b91c1c;}
+  .badge-enquire{background:#fef9c3;color:#854d0e;}
+  @media(max-width:600px){.two-col{grid-template-columns:1fr;}.topbar h1{font-size:0.9rem;}.tbtn{padding:6px 12px;font-size:0.78rem;}}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <h1>TryIt<span>Educations</span> – Website Editor</h1>
+  <div class="topbar-btns">
+    <button class="tbtn tbtn-green" onclick="downloadHTML()">⬇️ Download Updated HTML</button>
+  </div>
+</div>
+
+<div class="container">
+
+  <div class="tip">💡 <strong>How to use:</strong> Edit anything below → Click "Download Updated HTML" → Upload the file to GitHub (replace index.html)</div>
+
+  <!-- TICKER NOTIFICATIONS -->
+  <div class="section-card">
+    <div class="sec-header"><h2>📢 Ticker Notifications</h2><span>Scrolling alerts at the top of your site</span></div>
+    <div class="sec-body">
+      <div id="ticker-list"></div>
+      <div class="add-row">
+        <input class="add-input" id="ticker-new" placeholder="Type new notification e.g. SSC CGL 2026 Result Out!"/>
+        <button class="add-btn" onclick="addTicker()">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COURSES -->
+  <div class="section-card">
+    <div class="sec-header"><h2>🎓 Courses</h2><span>Add, edit or remove courses</span></div>
+    <div class="sec-body">
+      <div id="courses-list"></div>
+      <button class="add-course-btn" onclick="addCourse()">+ Add New Course</button>
+    </div>
+  </div>
+
+  <!-- EXAM CHIPS -->
+  <div class="section-card">
+    <div class="sec-header"><h2>🎯 Exam List</h2><span>Exams shown on your site</span></div>
+    <div class="sec-body">
+      <div id="exams-list"></div>
+      <div class="add-row">
+        <input class="add-input" id="exam-new" placeholder="Add exam e.g. TNPSC Group 4"/>
+        <button class="add-btn" onclick="addExam()">+ Add</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section-card">
+    <div class="sec-header"><h2>📞 Contact Details</h2><span>WhatsApp, phone, email, Telegram</span></div>
+    <div class="sec-body">
+      <div class="two-col">
+        <div class="field-row"><label>WhatsApp / Phone Number</label><input id="contact-phone" value="919566698821"/></div>
+        <div class="field-row"><label>Telegram Username</label><input id="contact-tg" value="tryiteducations"/></div>
+      </div>
+      <div class="field-row"><label>Email</label><input id="contact-email" value="owner@tryiteducations.net"/></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="success-toast" id="toast">✅ Done! File downloaded.</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+let tickers = [
+  "SSC CGL 2026 Notification Released – Apply before May 15",
+  "IBPS PO 2026 Exam Date: June 20–21 | Admit Card from June 5",
+  "RRB NTPC Phase 8 Result Expected in May 2026",
+  "UPSC Prelims 2026: May 25 | Last date to apply: April 28",
+  "SBI Clerk 2026 Mains Result Declared – Check Now",
+  "Free Daily Current Affairs Quiz → t.me/tryiteducations"
+];
+
+let courses = [
+  {title:"SSC CGL / CHSL Complete Course", sub:"Tier 1 + Tier 2 full syllabus coverage", features:["Quantitative Aptitude – 200+ videos","English Language & Comprehension","Reasoning – Verbal & Non-Verbal","General Awareness + Current Affairs","50 Full-Length Mock Tests"], fee:"FREE", oldprice:"₹4,999", watext:"SSC CGL / CHSL Course"},
+  {title:"Banking – IBPS PO / SBI PO / Clerk", sub:"Prelims + Mains complete preparation", features:["Reasoning & Computer Aptitude","Quantitative Aptitude + DI","English – RC, Cloze & Grammar","General / Financial Awareness","40 Sectional + 20 Full Mocks"], fee:"FREE", oldprice:"₹3,999", watext:"Banking Course (IBPS / SBI)"},
+  {title:"RRB NTPC / Group D Railway", sub:"CBT 1 + CBT 2 full preparation", features:["Mathematics – Basics to Advanced","General Intelligence & Reasoning","General Science – Phy, Chem, Bio","General Awareness & Current Affairs","30 Full-Length Mock Tests"], fee:"FREE", oldprice:"₹2,999", watext:"Railway RRB Course"},
+  {title:"UPSC CSE – Prelims + Mains", sub:"Comprehensive IAS preparation programme", features:["Complete GS 1–4 Video Lectures","Optional Subject Guidance","Daily Answer Writing Practice","Monthly Mains Test Series","Interview Guidance Module"], fee:"ENQUIRE", oldprice:"", watext:"UPSC CSE Course"},
+  {title:"Spoken English – Basic", sub:"Build confidence in everyday English", features:["Grammar Basics & Sentence Building","Pronunciation & Accent Training","Daily Vocabulary Building","Simple Conversation Practice","30 Video Lessons"], fee:"FREE", oldprice:"₹1,999", watext:"Spoken English Basic Course"},
+  {title:"Spoken English – Advanced", sub:"Master fluency for interviews & GDs", features:["Advanced Conversation & Fluency","Interview Preparation & Mock Sessions","Group Discussion Techniques","Business English & Email Writing","Personality Development"], fee:"PAID", oldprice:"₹2,999", watext:"Spoken English Advanced Course"},
+  {title:"Current Affairs + Editorial Monthly PDF", sub:"Compiled monthly PDF for all exams", features:["Daily CA in English & Tamil","Editorial summaries – The Hindu / IE","Monthly MCQ Practice Set (200 Qs)","Govt Schemes & Reports Digest","Delivered via Telegram"], fee:"FREE", oldprice:"", watext:"Monthly PDF"}
+];
+
+let exams = [
+  "SSC CGL","SSC CHSL","SSC MTS","IBPS PO","IBPS Clerk","SBI PO",
+  "SBI Clerk","RBI Grade B","RRB NTPC","RRB Group D","UPSC CSE",
+  "Spoken English Basic","Spoken English Advanced"
+];
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderTickers(){
+  const el = document.getElementById('ticker-list');
+  el.innerHTML = tickers.map((t,i)=>`
+    <div class="item-row">
+      <input value="${t}" onchange="tickers[${i}]=this.value"/>
+      <button class="del-btn" onclick="tickers.splice(${i},1);renderTickers()">🗑 Remove</button>
+    </div>`).join('');
+}
+
+function renderCourses(){
+  const el = document.getElementById('courses-list');
+  el.innerHTML = courses.map((c,i)=>`
+    <div class="course-card-edit">
+      <button class="del-btn del-course" onclick="courses.splice(${i},1);renderCourses()">🗑 Remove</button>
+      <div class="two-col">
+        <div class="field-row"><label>Course Title</label><input value="${c.title}" onchange="courses[${i}].title=this.value"/></div>
+        <div class="field-row"><label>Subtitle</label><input value="${c.sub}" onchange="courses[${i}].sub=this.value"/></div>
+      </div>
+      <div class="two-col">
+        <div class="field-row"><label>Fee Type</label>
+          <select onchange="courses[${i}].fee=this.value">
+            <option ${c.fee==='FREE'?'selected':''}>FREE</option>
+            <option ${c.fee==='PAID'?'selected':''}>PAID</option>
+            <option ${c.fee==='ENQUIRE'?'selected':''}>ENQUIRE</option>
+          </select>
+        </div>
+        <div class="field-row"><label>Original Price (e.g. ₹2,999)</label><input value="${c.oldprice}" placeholder="₹2,999" onchange="courses[${i}].oldprice=this.value"/></div>
+      </div>
+      <div class="field-row"><label>Features (one per line)</label>
+        <textarea onchange="courses[${i}].features=this.value.split('\\n').filter(x=>x)">${c.features.join('\n')}</textarea>
+      </div>
+    </div>`).join('');
+}
+
+function renderExams(){
+  const el = document.getElementById('exams-list');
+  el.innerHTML = exams.map((e,i)=>`
+    <div class="item-row">
+      <input value="${e}" onchange="exams[${i}]=this.value"/>
+      <button class="del-btn" onclick="exams.splice(${i},1);renderExams()">🗑 Remove</button>
+    </div>`).join('');
+}
+
+// ── ADD ───────────────────────────────────────────────────────────────────────
+function addTicker(){
+  const v = document.getElementById('ticker-new').value.trim();
+  if(!v) return;
+  tickers.push(v);
+  document.getElementById('ticker-new').value='';
+  renderTickers();
+}
+function addExam(){
+  const v = document.getElementById('exam-new').value.trim();
+  if(!v) return;
+  exams.push(v);
+  document.getElementById('exam-new').value='';
+  renderExams();
+}
+function addCourse(){
+  courses.push({title:"New Course",sub:"Course subtitle",features:["Feature 1","Feature 2"],fee:"FREE",oldprice:"₹999",watext:"New Course"});
+  renderCourses();
+  document.getElementById('courses-list').lastElementChild.scrollIntoView({behavior:'smooth'});
+}
+
+// ── GENERATE HTML ─────────────────────────────────────────────────────────────
+function generateHTML(){
+  const phone = document.getElementById('contact-phone').value.trim();
+  const tg = document.getElementById('contact-tg').value.trim();
+  const email = document.getElementById('contact-email').value.trim();
+
+  const tickerSpans = [...tickers,...tickers].map(t=>`<span>${t}</span>`).join('\n    ');
+
+  const courseCards = courses.map(c=>{
+    const featureItems = c.features.map(f=>`<li>${f}</li>`).join('');
+    let priceHTML = '';
+    if(c.fee==='FREE') priceHTML=`<span class="price-free">FREE</span>${c.oldprice?`<span class="price-old">${c.oldprice}</span>`:''}`;
+    else if(c.fee==='PAID') priceHTML=`<span class="price-free" style="color:var(--gold)">${c.oldprice||'Contact Us'}</span>`;
+    else priceHTML=`<span class="price-free" style="color:var(--gold);font-size:1rem;">Enquire for Price</span>`;
+    const badge = c.fee==='FREE'?'<span class="badge-free">FREE</span>':'';
+    const btnText = c.fee==='ENQUIRE'?'💬 Enquire on WhatsApp':'💬 Enrol on WhatsApp';
+    const waLink = `https://wa.me/${phone}?text=Hi%2C%20I%20want%20to%20enrol%20in%20the%20${encodeURIComponent(c.watext||c.title)}%20at%20TryIt%20Educations`;
+    return `
+      <div class="course-card">
+        <div class="course-top">${badge}<h3>${c.title}</h3><p>${c.sub}</p></div>
+        <div class="course-body">
+          <ul class="course-features">${featureItems}</ul>
+          <div class="course-price">${priceHTML}</div>
+          <a href="${waLink}" target="_blank" class="btn-buy">${btnText}</a>
+        </div>
+      </div>`;
+  }).join('');
+
+  const examChips = exams.map((e,i)=>`<div class="exam-chip${i===0?' active':''}">${e}</div>`).join('');
+
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>TryIt Educations – Free Coaching SSC | Banking | Railways | UPSC</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Merriweather:wght@700;900&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --navy:#0d1f3c; --navy2:#162d50; --gold:#f5a623; --gold2:#ffcc60;
+      --teal:#00b4a0; --red:#e53e3e; --green:#22c55e;
+      --cream:#f7f3eb; --white:#ffffff; --text:#1a1a2e; --muted:#6b7280;
+      --border:#dde3ef; --card:#ffffff; --shadow:0 4px 18px rgba(13,31,60,0.10);
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{font-family:'Nunito',sans-serif;background:var(--cream);color:var(--text);line-height:1.65;font-size:15px;}
+    a{text-decoration:none;color:inherit;}
+    .ticker-wrap{background:var(--gold);color:var(--navy);overflow:hidden;white-space:nowrap;padding:7px 0;font-weight:800;font-size:0.82rem;position:relative;z-index:200;}
+    .ticker-label{display:inline-block;background:var(--navy);color:var(--gold);padding:2px 16px 2px 10px;margin-right:8px;clip-path:polygon(0 0,calc(100% - 10px) 0,100% 50%,calc(100% - 10px) 100%,0 100%);font-size:0.76rem;letter-spacing:1px;}
+    .ticker-track{display:inline-block;animation:ticker 40s linear infinite;}
+    .ticker-track span{margin:0 2.5rem;}
+    .ticker-track span::before{content:"🔔 ";}
+    @keyframes ticker{0%{transform:translateX(0);}100%{transform:translateX(-50%);}}
+    header{background:var(--navy);position:sticky;top:0;z-index:150;box-shadow:0 2px 16px rgba(0,0,0,0.28);}
+    .header-top{max-width:1200px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:0 1.2rem;height:62px;gap:1rem;}
+    .logo{font-family:'Merriweather',serif;font-size:1.35rem;font-weight:900;color:#fff;white-space:nowrap;}
+    .logo span{color:var(--gold);}
+    .logo small{display:block;font-family:'Nunito',sans-serif;font-size:0.62rem;font-weight:600;color:rgba(255,255,255,0.5);letter-spacing:0.8px;margin-top:-3px;}
+    .nav-links{display:flex;align-items:center;gap:0.2rem;flex-wrap:wrap;}
+    .nav-links a{color:rgba(255,255,255,0.78);font-weight:700;font-size:0.82rem;padding:6px 11px;border-radius:6px;transition:background 0.18s,color 0.18s;}
+    .nav-links a:hover{background:rgba(255,255,255,0.1);color:#fff;}
+    .nav-links a.active{background:var(--gold);color:var(--navy);}
+    .nav-cta{background:var(--teal)!important;color:#fff!important;border-radius:7px!important;font-weight:800!important;}
+    .nav-cta:hover{background:#009e8c!important;}
+    .hero{background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 55%,#1a4a7a 100%);color:#fff;padding:3.5rem 1.2rem 3rem;text-align:center;position:relative;overflow:hidden;}
+    .hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 75% 40%,rgba(245,166,35,0.13) 0%,transparent 60%),radial-gradient(ellipse at 20% 80%,rgba(0,180,160,0.10) 0%,transparent 55%);}
+    .hero-inner{position:relative;max-width:800px;margin:auto;}
+    .hero-eyebrow{display:inline-block;background:rgba(245,166,35,0.18);border:1px solid rgba(245,166,35,0.4);color:var(--gold2);padding:4px 14px;border-radius:999px;font-size:0.78rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-bottom:1rem;}
+    .hero h1{font-family:'Merriweather',serif;font-size:clamp(1.7rem,4.5vw,2.9rem);font-weight:900;line-height:1.2;margin-bottom:0.9rem;}
+    .hero h1 span{color:var(--gold);}
+    .hero p{font-size:1rem;color:rgba(255,255,255,0.8);max-width:560px;margin:0 auto 1.8rem;}
+    .hero-badges{display:flex;flex-wrap:wrap;justify-content:center;gap:0.5rem;margin-bottom:1.8rem;}
+    .hero-badge{background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);color:rgba(255,255,255,0.88);padding:5px 13px;border-radius:999px;font-size:0.78rem;font-weight:700;}
+    .hero-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:0.8rem;}
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:0.65rem 1.4rem;border-radius:9px;font-weight:800;font-size:0.9rem;cursor:pointer;transition:transform 0.15s,opacity 0.15s;border:none;}
+    .btn:hover{transform:scale(1.04);}
+    .btn-gold{background:var(--gold);color:var(--navy);}
+    .btn-wa{background:#25d366;color:#fff;}
+    .btn-tg{background:#0088cc;color:#fff;}
+    .btn-outline{background:transparent;border:2px solid rgba(255,255,255,0.35);color:#fff;}
+    section{padding:0;}
+    .section-inner{max-width:1200px;margin:auto;padding:2.5rem 1.2rem;}
+    .sec-head{margin-bottom:1.6rem;}
+    .sec-title{font-family:'Merriweather',serif;font-size:1.55rem;font-weight:900;color:var(--navy);margin-bottom:4px;}
+    .sec-bar{width:44px;height:4px;background:var(--gold);border-radius:2px;margin:6px 0 8px;}
+    .sec-sub{color:var(--muted);font-size:0.9rem;}
+    .courses{background:var(--cream);}
+    .courses-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.1rem;}
+    .course-card{background:var(--card);border:1.5px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform 0.2s;}
+    .course-card:hover{transform:translateY(-5px);}
+    .course-top{background:linear-gradient(135deg,var(--navy),#1a4a7a);padding:1.2rem;color:#fff;position:relative;}
+    .course-top .badge-free{position:absolute;top:10px;right:10px;background:var(--green);color:#fff;font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:4px;}
+    .course-top h3{font-family:'Merriweather',serif;font-size:1rem;margin-bottom:3px;}
+    .course-top p{font-size:0.78rem;color:rgba(255,255,255,0.72);}
+    .course-body{padding:1rem 1.1rem;}
+    .course-features{list-style:none;margin-bottom:1rem;}
+    .course-features li{font-size:0.83rem;color:var(--muted);padding:3px 0;}
+    .course-features li::before{content:"✅ ";font-size:0.8rem;}
+    .course-price{display:flex;align-items:center;gap:0.6rem;margin-bottom:0.9rem;}
+    .price-free{font-size:1.2rem;font-weight:900;color:var(--green);}
+    .price-old{font-size:0.85rem;color:var(--muted);text-decoration:line-through;}
+    .btn-buy{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:0.65rem;background:#25d366;color:#fff;border:none;border-radius:9px;font-weight:800;font-size:0.88rem;cursor:pointer;transition:background 0.18s,transform 0.15s;text-decoration:none;}
+    .btn-buy:hover{background:#1ebe5d;transform:scale(1.02);}
+    .exams{background:var(--cream);}
+    .exam-chips{display:flex;flex-wrap:wrap;gap:0.7rem;}
+    .exam-chip{border:2px solid var(--navy);color:var(--navy);border-radius:8px;padding:6px 14px;font-size:0.85rem;font-weight:800;cursor:pointer;transition:background 0.18s,color 0.18s;}
+    .exam-chip.active,.exam-chip:hover{background:var(--navy);color:#fff;}
+    .contact{background:#fff;border-top:3px solid var(--gold);}
+    .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem;}
+    .contact-card{border:1.5px solid var(--border);border-radius:12px;padding:1.3rem;text-align:center;background:var(--cream);transition:box-shadow 0.2s,transform 0.2s;}
+    .contact-card:hover{box-shadow:var(--shadow);transform:translateY(-3px);}
+    .contact-card .c-icon{font-size:2.2rem;margin-bottom:0.5rem;}
+    .contact-card h4{font-size:1rem;font-weight:800;margin-bottom:4px;color:var(--navy);}
+    .contact-card p{font-size:0.83rem;color:var(--muted);margin-bottom:0.8rem;}
+    .clink{display:inline-flex;align-items:center;gap:5px;padding:7px 16px;border-radius:8px;font-weight:800;font-size:0.85rem;transition:transform 0.15s;}
+    .clink:hover{transform:scale(1.04);}
+    .clink-wa{background:#25d366;color:#fff;}
+    .clink-tg{background:#0088cc;color:#fff;}
+    .clink-mail{background:var(--navy);color:#fff;}
+    .clink-call{background:var(--gold);color:var(--navy);}
+    footer{background:var(--navy);color:rgba(255,255,255,0.65);padding:2.2rem 1.2rem 1.4rem;}
+    .footer-inner{max-width:1200px;margin:auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.5rem;margin-bottom:1.5rem;}
+    .footer-col h5{color:var(--gold);font-size:0.82rem;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;margin-bottom:0.7rem;}
+    .footer-col a{display:block;color:rgba(255,255,255,0.6);font-size:0.83rem;margin-bottom:5px;transition:color 0.15s;}
+    .footer-col a:hover{color:var(--gold);}
+    .footer-col p{font-size:0.82rem;line-height:1.6;}
+    .footer-bottom{max-width:1200px;margin:auto;border-top:1px solid rgba(255,255,255,0.08);padding-top:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.5rem;font-size:0.78rem;}
+    .fab-group{position:fixed;bottom:1.4rem;right:1.2rem;display:flex;flex-direction:column;gap:0.6rem;z-index:999;}
+    .fab{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 4px 16px rgba(0,0,0,0.25);cursor:pointer;transition:transform 0.18s;text-decoration:none;}
+    .fab:hover{transform:scale(1.12);}
+    .fab-wa{background:#25d366;}
+    .fab-tg{background:#0088cc;}
+    @media(max-width:640px){.nav-links{display:none;}.hero h1{font-size:1.6rem;}.logo{font-size:1.1rem;}}
+  </style>
+</head>
+<body>
+
+<div class="ticker-wrap">
+  <span class="ticker-label">📢 ALERTS</span>
+  <span class="ticker-track">
+    ${tickerSpans}
+  </span>
+</div>
+
+<header>
+  <div class="header-top">
+    <div class="logo">TryIt<span>Educations</span><small>FREE COACHING FOR GOVT EXAMS</small></div>
+    <nav class="nav-links">
+      <a href="#exams">Exams</a>
+      <a href="#courses">Courses</a>
+      <a href="#contact">Contact</a>
+      <a href="https://t.me/${tg}" target="_blank" class="nav-cta">📲 Telegram</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">100% Free · No Hidden Fees</div>
+    <h1>Free Coaching for <span>SSC · Banking</span><br>Railways · Spoken English · UPSC</h1>
+    <p>Daily current affairs, editorial analysis, mock tests &amp; study material — all free for every aspirant.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">🏆 SSC CGL/CHSL</span>
+      <span class="hero-badge">🏦 IBPS/SBI/RBI</span>
+      <span class="hero-badge">🚂 RRB/NTPC</span>
+      <span class="hero-badge">🗣️ Spoken English</span>
+      <span class="hero-badge">🏛️ UPSC/IAS</span>
+      <span class="hero-badge">✅ 1,00,000+ Students</span>
+    </div>
+    <div class="hero-btns">
+      <a href="https://t.me/${tg}" target="_blank" class="btn btn-tg">📲 Join Telegram Channel</a>
+      <a href="https://wa.me/${phone}" target="_blank" class="btn btn-wa">💬 WhatsApp Us</a>
+      <a href="#courses" class="btn btn-gold">🎓 Explore Courses</a>
+    </div>
+  </div>
+</div>
+
+<section class="courses" id="courses">
+  <div class="section-inner">
+    <div class="sec-head">
+      <div class="sec-title">🎓 Our Courses</div>
+      <div class="sec-bar"></div>
+      <div class="sec-sub">Click "Enrol on WhatsApp" to connect with our team instantly — most courses are FREE!</div>
+    </div>
+    <div class="courses-grid">
+      ${courseCards}
+    </div>
+  </div>
+</section>
+
+<section class="exams" id="exams">
+  <div class="section-inner">
+    <div class="sec-head"><div class="sec-title">🎯 Choose Your Exam</div><div class="sec-bar"></div></div>
+    <div class="exam-chips">${examChips}</div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-inner">
+    <div class="sec-head">
+      <div class="sec-title">📞 Contact Us</div>
+      <div class="sec-bar"></div>
+      <div class="sec-sub">We're happy to help — reach us anytime on WhatsApp, Telegram, phone or email.</div>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card"><div class="c-icon">💬</div><h4>WhatsApp</h4><p>Chat for course enquiries, study material, doubt clearing &amp; admissions.</p><a href="https://wa.me/${phone}" target="_blank" class="clink clink-wa">💬 Chat on WhatsApp</a></div>
+      <div class="contact-card"><div class="c-icon">📞</div><h4>Call Us</h4><p>Call directly for personalised guidance and admission queries.</p><a href="tel:+${phone}" class="clink clink-call">📞 +${phone}</a></div>
+      <div class="contact-card"><div class="c-icon">📲</div><h4>Telegram Channel</h4><p>Join for free daily current affairs, editorial PDFs &amp; live quizzes.</p><a href="https://t.me/${tg}" target="_blank" class="clink clink-tg">📲 @${tg}</a></div>
+      <div class="contact-card"><div class="c-icon">📧</div><h4>Email</h4><p>For partnerships, content collaboration &amp; official communications.</p><a href="mailto:${email}" class="clink clink-mail">📧 ${email}</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col"><h5>TryIt Educations</h5><p>Free coaching for SSC, Banking, Railways, Spoken English &amp; UPSC aspirants. Daily current affairs &amp; mock tests — all free.</p></div>
+    <div class="footer-col"><h5>Quick Links</h5><a href="#courses">Courses</a><a href="#exams">Exams</a><a href="#contact">Contact</a></div>
+    <div class="footer-col"><h5>Contact</h5><a href="https://wa.me/${phone}" target="_blank">💬 WhatsApp</a><a href="tel:+${phone}">📞 +${phone}</a><a href="https://t.me/${tg}" target="_blank">📲 @${tg}</a><a href="mailto:${email}">📧 ${email}</a></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 <strong style="color:var(--gold)">TryIt Educations</strong>. All rights reserved.</span><span>Made with ❤️ for every aspirant in India 🇮🇳</span></div>
+</footer>
+
+<div class="fab-group">
+  <a href="https://t.me/${tg}" target="_blank" class="fab fab-tg" title="Telegram">📲</a>
+  <a href="https://wa.me/${phone}" target="_blank" class="fab fab-wa" title="WhatsApp">💬</a>
+</div>
+
+<script>
+  document.querySelectorAll('.exam-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.exam-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+<\/script>
+</body>
+</html>`;
+}
+
+function downloadHTML(){
+  const html = generateHTML();
+  const blob = new Blob([html], {type:'text/html'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'index.html';
+  a.click();
+  const toast = document.getElementById('toast');
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'), 3000);
+}
+
+// Init
+renderTickers();
+renderCourses();
+renderExams();
+</script>
+</body>
+</html>
