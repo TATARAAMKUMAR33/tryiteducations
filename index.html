@@ -23,7 +23,7 @@
   
   <!-- External Resources -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-/SlScMvfeQBwt1jzGEHkjGc18NTF+2XYnUyAQhZFTRUwm2IwpdzFhS+uSGjKyPPIvWCc4p6c0jLcN0fPbhhJWA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-/SlScMvfeQBwt1jzGEHkjGc18NTF+2XYnUyAQhZFTRUwm2IwpdzFhS+uSGjKyPPIvWCc4p6c[...]" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%23FF9933'>T</text></svg>" />
@@ -40,6 +40,10 @@
       --railway-red: #D32F2F;
       --glass: rgba(255, 255, 255, 0.95);
       --card-shadow: 0 20px 40px rgba(0,0,0,0.06);
+      --upsc-gold: #D4A574;
+      --ssc-blue: #1E40AF;
+      --rrb-red: #DC2626;
+      --banking-green: #059669;
     }
 
     * { 
@@ -130,6 +134,16 @@
       0% { box-shadow: 0 0 20px var(--primary); opacity: 0.7; }
       50% { box-shadow: 0 0 50px var(--primary); opacity: 1; }
       100% { box-shadow: 0 0 20px var(--primary); opacity: 0.7; }
+    }
+
+    @keyframes cardBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
     }
 
     /* ── NOTIFICATION TICKER ── */
@@ -450,90 +464,147 @@
       border-radius: 10px; 
     }
 
-    /* ── COURSE GRID & CARDS ── */
+    /* ── COURSE GRID & CARDS (ENHANCED) ── */
     .course-grid { 
       display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-      gap: 35px; 
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+      gap: 40px;
+      place-items: stretch;
     }
 
     .course-card { 
       background: var(--glass);
       border-radius: 28px;
-      padding: 45px;
-      border: 1px solid rgba(255,255,255,0.8);
+      padding: 50px 45px;
+      border: 2px solid rgba(255,255,255,0.6);
       transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
       position: relative;
       display: flex;
       flex-direction: column;
       box-shadow: var(--card-shadow);
+      overflow: hidden;
+      min-height: 520px;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: linear-gradient(90deg, var(--primary), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .course-card:hover::before {
+      transform: scaleX(1);
     }
 
     .course-card:hover { 
-      transform: translateY(-15px); 
-      box-shadow: 0 40px 80px rgba(0,0,0,0.1); 
+      transform: translateY(-20px) scale(1.02); 
+      box-shadow: 0 50px 100px rgba(0,0,0,0.15); 
       border-color: var(--primary); 
+    }
+
+    .course-card.upsc-card {
+      background: linear-gradient(135deg, rgba(212, 165, 116, 0.08), rgba(255, 255, 255, 0.95));
+      border-left: 6px solid var(--upsc-gold);
+    }
+
+    .course-card.ssc-card {
+      background: linear-gradient(135deg, rgba(30, 64, 175, 0.08), rgba(255, 255, 255, 0.95));
+      border-left: 6px solid var(--ssc-blue);
+    }
+
+    .course-card.rrb-card {
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(255, 255, 255, 0.95));
+      border-left: 6px solid var(--rrb-red);
+    }
+
+    .course-card.banking-card {
+      background: linear-gradient(135deg, rgba(5, 150, 105, 0.08), rgba(255, 255, 255, 0.95));
+      border-left: 6px solid var(--banking-green);
     }
 
     .course-card h3 {
       color: var(--nav-blue);
       font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
-      margin: 15px 0;
+      font-size: 2rem;
+      margin: 20px 0 15px;
+      font-weight: 900;
     }
 
     .course-card p {
       color: var(--text-muted);
-      margin-bottom: 20px;
+      margin-bottom: 25px;
       flex-grow: 1;
+      font-size: 0.95rem;
+      line-height: 1.7;
     }
 
     .badge { 
       background: #FFF7ED; 
       color: #C2410C; 
-      padding: 6px 18px; 
+      padding: 8px 20px; 
       border-radius: 100px; 
-      font-size: 0.75rem; 
-      font-weight: 700; 
-      margin-bottom: 20px; 
+      font-size: 0.78rem; 
+      font-weight: 800; 
+      margin-bottom: 25px; 
       align-self: flex-start; 
       text-transform: uppercase;
+      letter-spacing: 1px;
     }
 
+    .badge.upsc-badge { background: rgba(212, 165, 116, 0.15); color: var(--upsc-gold); }
+    .badge.ssc-badge { background: rgba(30, 64, 175, 0.15); color: var(--ssc-blue); }
+    .badge.rrb-badge { background: rgba(220, 38, 38, 0.15); color: var(--rrb-red); }
+    .badge.banking-badge { background: rgba(5, 150, 105, 0.15); color: var(--banking-green); }
+
+    /* ── LOGO CONTAINER (ENHANCED) ── */
     .gov-logo-wrap {
-      width: 90px;
-      height: 90px;
-      margin: 0 auto 25px;
-      filter: drop-shadow(0 6px 16px rgba(0,0,0,0.18));
-      transition: transform 0.4s ease, filter 0.4s ease;
+      width: 110px;
+      height: 110px;
+      margin: 0 auto 35px;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.15));
+      transition: transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275), filter 0.4s ease;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      border: 3px solid rgba(255, 153, 51, 0.2);
     }
 
     .gov-logo-wrap:hover {
-      transform: scale(1.08) rotate(-2deg);
-      filter: drop-shadow(0 10px 24px rgba(0,0,0,0.28));
+      transform: scale(1.15) rotate(5deg);
+      filter: drop-shadow(0 12px 32px rgba(0,0,0,0.25));
+      border-color: var(--primary);
     }
 
     .gov-logo-img {
-      width: 100%;
-      height: 100%;
+      width: 85%;
+      height: 85%;
       object-fit: contain;
-      filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
-      transition: transform 0.3s ease;
+      filter: drop-shadow(0 3px 8px rgba(0,0,0,0.15));
+      transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
       display: block;
-      margin: 0 auto;
     }
 
     .course-card:hover .gov-logo-img {
-      transform: scale(1.1) rotate(2deg);
+      transform: scale(1.12) rotate(-3deg);
     }
 
     /* ── SYLLABUS BOX ── */
     .syllabus-box {
       background: #f8fafc;
       border-radius: 18px;
-      padding: 20px;
-      margin: 20px 0;
-      border-left: 4px solid var(--primary);
+      padding: 25px;
+      margin: 30px 0;
+      border-left: 5px solid var(--primary);
     }
 
     .syllabus-box ul { 
@@ -541,18 +612,19 @@
     }
 
     .syllabus-box li { 
-      margin-bottom: 10px; 
+      margin-bottom: 12px; 
       font-size: 0.95rem; 
       color: var(--text-muted); 
       display: flex; 
       align-items: flex-start; 
+      gap: 12px;
     }
 
     .syllabus-box li i { 
       color: var(--primary); 
-      margin-right: 12px; 
-      margin-top: 5px; 
-      font-size: 0.8rem; 
+      margin-top: 4px;
+      font-size: 0.8rem;
+      flex-shrink: 0;
     }
 
     /* ── MENTOR SECTION ── */
@@ -978,6 +1050,11 @@
         grid-template-columns: 1fr;
       }
 
+      .course-card {
+        min-height: auto;
+        padding: 35px 25px;
+      }
+
       .section-title {
         font-size: 2rem;
       }
@@ -998,296 +1075,257 @@
         font-size: 1rem;
       }
 
-      .trust-banner {
-        padding: 25px;
-        margin: -40px auto 40px;
-      }
-
-      .trust-banner h2 {
-        font-size: 1.5rem;
+      .gov-logo-wrap {
+        width: 100px;
+        height: 100px;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- ── FLOATING SOCIAL SIDEBAR ── -->
-<div class="float-social" role="complementary" aria-label="Social media links">
-  <a href="https://wa.me/919566698821?text=Hi%2C%20I%20want%20to%20join%20TryIt%20Educations" class="fs-wa" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
-    <i class="fab fa-whatsapp" aria-hidden="true"></i><span class="fs-label">WhatsApp</span>
-  </a>
-  <a href="https://t.me/s/tryiteducations" class="fs-tg" target="_blank" rel="noopener noreferrer" aria-label="Join our Telegram channel">
-    <i class="fab fa-telegram" aria-hidden="true"></i><span class="fs-label">Telegram</span>
-  </a>
-  <a href="https://www.youtube.com/@tryiteducations" class="fs-yt" target="_blank" rel="noopener noreferrer" aria-label="Subscribe to our YouTube channel">
-    <i class="fab fa-youtube" aria-hidden="true"></i><span class="fs-label">YouTube</span>
-  </a>
-  <a href="https://www.instagram.com/tryiteducations" class="fs-ig" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-    <i class="fab fa-instagram" aria-hidden="true"></i><span class="fs-label">Instagram</span>
-  </a>
-</div>
-
-<!-- ── NOTIFICATION TICKER ── -->
-<div class="notification-ticker" role="status" aria-live="polite">
-  <span class="ticker-dot" aria-hidden="true"></span>
-  <div class="ticker-track">
-    <span class="ticker-inner">
-      <i class="fas fa-bolt" aria-hidden="true"></i>&nbsp; 🎉 OFFER: Get 20% Off on Spoken English Batches!
-      <span class="ticker-sep" aria-hidden="true">★</span>
-      SSC CGL Exam Date: Oct 2026 — New Batch Starting Soon!
-      <span class="ticker-sep" aria-hidden="true">★</span>
-      🏦 Banking (IBPS PO/Clerk) Batch Enrolling Now — Limited Seats!
-      <span class="ticker-sep" aria-hidden="true">★</span>
-      🚂 RRB NTPC New Notification Expected — Start Prep Today!
-      <span class="ticker-sep" aria-hidden="true">★</span>
-      📞 Call / WhatsApp: 9566698821 for Free Demo Class
-      <span class="ticker-sep" aria-hidden="true">★</span>
-    </span>
+  <!-- NOTIFICATION TICKER -->
+  <div class="notification-ticker">
+    <span class="ticker-dot"></span>
+    <div class="ticker-track">
+      <div class="ticker-inner">
+        🎯 Registration Open for SSC, RRB & UPSC Batches 2026 | 📞 WhatsApp for Early Bird Offers | 🏆 150+ Students Cleared Exams Last Year
+        <span class="ticker-sep">•</span>
+        🎯 Registration Open for SSC, RRB & UPSC Batches 2026 | 📞 WhatsApp for Early Bird Offers | 🏆 150+ Students Cleared Exams Last Year
+      </div>
+    </div>
+    <a href="#">Enroll Now</a>
   </div>
-  <a href="https://ssc.nic.in" target="_blank" rel="noopener noreferrer">SSC Portal &nbsp;<i class="fas fa-external-link-alt" aria-hidden="true" style="font-size:0.65rem;"></i></a>
-</div>
 
-<!-- ── SECONDARY NAV BAR ── -->
-<nav class="secondary-nav" role="navigation" aria-label="Secondary navigation">
-  <a href="#current-affairs" class="has-badge">
-    <i class="fas fa-newspaper" aria-hidden="true"></i> Current Affairs
-  </a>
-  <div class="nav-divider" aria-hidden="true"></div>
-  <a href="#editorials">
-    <i class="fas fa-pen-nib" aria-hidden="true"></i> Daily Editorials
-  </a>
-  <div class="nav-divider" aria-hidden="true"></div>
-  <a href="#test-series">
-    <i class="fas fa-clipboard-list" aria-hidden="true"></i> Test Series
-  </a>
-  <div class="nav-divider" aria-hidden="true"></div>
-  <a href="#ssc">
-    <i class="fas fa-book-open" aria-hidden="true"></i> Courses
-  </a>
-  <div class="nav-divider" aria-hidden="true"></div>
-  <a href="#mentor">
-    <i class="fas fa-info-circle" aria-hidden="true"></i> About
-  </a>
-  <a href="https://wa.me/919566698821?text=Hi%2C%20I%20want%20to%20enroll%20at%20TryIt%20Educations" class="nav-cta" target="_blank" rel="noopener">
-    <i class="fab fa-whatsapp" aria-hidden="true"></i> Enroll Now
-  </a>
-</nav>
-
-<!-- ── PRIMARY NAV ── -->
-<nav role="navigation" aria-label="Primary navigation">
-  <a href="#" class="logo">TryIt<span>Educations</span></a>
-  <div class="nav-links">
-    <a href="#ssc">SSC</a>
-    <a href="#banking">Banking</a>
-    <a href="#rrb">Railways</a>
-    <a href="#english">English</a>
-    <a href="#mentor">The Founder</a>
+  <!-- SECONDARY NAVIGATION -->
+  <div class="secondary-nav">
+    <a href="#upsc"><i class="fas fa-crown"></i> UPSC</a>
+    <a href="#ssc"><i class="fas fa-book"></i> SSC</a>
+    <a href="#rrb"><i class="fas fa-train"></i> RRB</a>
+    <a href="#banking"><i class="fas fa-university"></i> Banking</a>
+    <div class="nav-divider"></div>
+    <a href="#tnpsc"><i class="fas fa-map-pin"></i> TNPSC</a>
+    <a href="#english" class="has-badge"><i class="fas fa-language"></i> Spoken English</a>
+    <a href="#whatsapp" class="nav-cta"><i class="fab fa-whatsapp"></i> Get Help</a>
   </div>
-</nav>
 
-<!-- ── HERO SECTION ── -->
-<section class="hero" role="banner" aria-label="Welcome section">
-  <h1>Forge Your Path<br>to Government Excellence.</h1>
-  <p>Karur's highest-rated institute for competitive exams and professional communication mastery.</p>
-</section>
+  <!-- PRIMARY NAVIGATION -->
+  <nav>
+    <a href="/" class="logo">Try<span>It</span></a>
+    <div class="nav-links">
+      <a href="#courses">Courses</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
 
-<!-- ── TRUST BANNER ── -->
-<div class="trust-banner" role="region" aria-label="Our mission statement">
-  <h2>வெற்றி நிச்சயம்: <span>தமிழ் வழி மாணவர்களுக்காக!</span></h2>
-  <p>We specialize in transforming Tamil Medium students into Central Government officers. Our unique <strong>Bilingual Edge</strong> ensures you understand every concept as clearly as your mother tongue allows, making success inevitable.</p>
-</div>
+  <!-- HERO SECTION -->
+  <div class="hero">
+    <h1>Transform Your Future with Expert Govt Exam Coaching</h1>
+    <p>Master SSC, RRB, UPSC, Banking & TNPSC with bilingual support from experienced mentors in Karur</p>
+  </div>
 
-<!-- ── FOUNDER SECTION ── -->
-<section id="mentor" role="region" aria-label="Founder and vision">
-  <div class="mentor-wrap">
-    <div class="mentor-image">
-      <div class="lock-scene">
-        <div style="display:flex;flex-direction:column;align-items:center;">
+  <!-- TRUST BANNER -->
+  <div class="trust-banner">
+    <h2>Join <span>500+ Successful Students</span></h2>
+    <p>Proven track record of excellence in competitive exams coaching since 2018</p>
+  </div>
+
+  <!-- COURSES SECTION -->
+  <section id="courses">
+    <h2 class="section-title">Our Specialized Courses</h2>
+    <div class="course-grid">
+
+      <!-- UPSC COURSE CARD -->
+      <div class="course-card upsc-card">
+        <span class="badge upsc-badge">Premium Course</span>
+        <div class="gov-logo-wrap">
+          <svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="none"/>
+            <circle cx="50" cy="30" r="12" fill="#D4A574"/>
+            <polygon points="50,50 60,65 40,65" fill="#D4A574"/>
+            <path d="M30 70 Q30 85 50 88 Q70 85 70 70" fill="#D4A574"/>
+            <text x="50" y="95" font-size="8" font-weight="bold" text-anchor="middle" fill="#1A202C">UPSC</text>
+          </svg>
+        </div>
+        <h3>UPSC Preparation</h3>
+        <p>Comprehensive training for Union Public Service Commission exams covering Prelims, Mains & Interview.</p>
+        <div class="syllabus-box">
+          <ul>
+            <li><i class="fas fa-check"></i> Complete CSAT & General Studies</li>
+            <li><i class="fas fa-check"></i> Essay & Answer Writing</li>
+            <li><i class="fas fa-check"></i> Interview Coaching</li>
+            <li><i class="fas fa-check"></i> Current Affairs Mastery</li>
+          </ul>
+        </div>
+        <a href="#" class="btn-action">Enroll Now</a>
+      </div>
+
+      <!-- SSC COURSE CARD -->
+      <div class="course-card ssc-card">
+        <span class="badge ssc-badge">Most Popular</span>
+        <div class="gov-logo-wrap">
+          <svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" fill="none"/>
+            <rect x="20" y="20" width="60" height="60" fill="none" stroke="#1E40AF" stroke-width="3" rx="5"/>
+            <line x1="35" y1="30" x2="35" y2="70" stroke="#1E40AF" stroke-width="2"/>
+            <line x1="50" y1="30" x2="50" y2="70" stroke="#1E40AF" stroke-width="2"/>
+            <line x1="65" y1="30" x2="65" y2="70" stroke="#1E40AF" stroke-width="2"/>
+            <text x="50" y="85" font-size="10" font-weight="bold" text-anchor="middle" fill="#1E40AF">SSC</text>
+          </svg>
+        </div>
+        <h3>SSC Excellence</h3>
+        <p>Master SSC CHSL, CGL, CPO, MTS & Stenographer exams with expert guidance and mock tests.</p>
+        <div class="syllabus-box">
+          <ul>
+            <li><i class="fas fa-check"></i> Quantitative Aptitude</li>
+            <li><i class="fas fa-check"></i> English Language Mastery</li>
+            <li><i class="fas fa-check"></i> Reasoning & Logic</li>
+            <li><i class="fas fa-check"></i> 100+ Full-Length Tests</li>
+          </ul>
+        </div>
+        <a href="#" class="btn-action">Enroll Now</a>
+      </div>
+
+      <!-- RRB COURSE CARD -->
+      <div class="course-card rrb-card">
+        <span class="badge rrb-badge">High Success Rate</span>
+        <div class="gov-logo-wrap">
+          <svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 45 L80 45" stroke="#DC2626" stroke-width="8" stroke-linecap="round"/>
+            <circle cx="30" cy="45" r="8" fill="#DC2626"/>
+            <circle cx="50" cy="45" r="8" fill="#DC2626"/>
+            <circle cx="70" cy="45" r="8" fill="#DC2626"/>
+            <rect x="15" y="55" width="70" height="20" fill="none" stroke="#DC2626" stroke-width="2" rx="3"/>
+            <text x="50" y="92" font-size="10" font-weight="bold" text-anchor="middle" fill="#DC2626">RRB</text>
+          </svg>
+        </div>
+        <h3>RRB Mastery</h3>
+        <p>Specialized training for RRB NTPC, Group D, ALP & JE exams with railway-specific strategies.</p>
+        <div class="syllabus-box">
+          <ul>
+            <li><i class="fas fa-check"></i> Railway Exam Patterns</li>
+            <li><i class="fas fa-check"></i> Speed & Accuracy Training</li>
+            <li><i class="fas fa-check"></i> Section-wise Mastery</li>
+            <li><i class="fas fa-check"></i> Previous Year Solutions</li>
+          </ul>
+        </div>
+        <a href="#" class="btn-action">Enroll Now</a>
+      </div>
+
+      <!-- BANKING COURSE CARD -->
+      <div class="course-card banking-card">
+        <span class="badge banking-badge">Expert Trainers</span>
+        <div class="gov-logo-wrap">
+          <svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 35 L50 20 L80 35" fill="#059669" stroke="#059669" stroke-width="1"/>
+            <rect x="20" y="35" width="60" height="50" fill="none" stroke="#059669" stroke-width="2" rx="3"/>
+            <line x1="50" y1="35" x2="50" y2="85" stroke="#059669" stroke-width="1.5"/>
+            <line x1="35" y1="60" x2="65" y2="60" stroke="#059669" stroke-width="1.5"/>
+            <text x="50" y="95" font-size="10" font-weight="bold" text-anchor="middle" fill="#059669">BANKING</text>
+          </svg>
+        </div>
+        <h3>Banking Mastery</h3>
+        <p>Complete preparation for IBPS PO, Clerk, SBI, RBI exams with latest exam patterns and strategies.</p>
+        <div class="syllabus-box">
+          <ul>
+            <li><i class="fas fa-check"></i> IBPS & SBI Pattern Experts</li>
+            <li><i class="fas fa-check"></i> Financial Awareness</li>
+            <li><i class="fas fa-check"></i> Interview Preparation</li>
+            <li><i class="fas fa-check"></i> Mock Interviews & Tests</li>
+          </ul>
+        </div>
+        <a href="#" class="btn-action">Enroll Now</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MENTOR SECTION -->
+  <section>
+    <div class="mentor-wrap">
+      <div class="mentor-image">
+        <div class="lock-scene">
           <div class="lock-group">
             <div class="lock-body">
-              <div class="lock-shackle"></div>
-              <div class="keyhole"></div>
-              <div class="spark" aria-hidden="true"></div>
-              <div class="spark" aria-hidden="true"></div>
-              <div class="spark" aria-hidden="true"></div>
+              <div class="keyhole">
+                <div class="spark"></div>
+                <div class="spark"></div>
+                <div class="spark"></div>
+              </div>
             </div>
+            <div class="lock-shackle"></div>
+            <div class="floating-key">🔑</div>
           </div>
-          <div class="lock-reflection" aria-hidden="true"></div>
         </div>
+        <div class="lock-reflection"></div>
+      </div>
+      <div class="mentor-text">
+        <h3>Unlock Your Potential</h3>
+        <p>Our experienced mentors have guided over 500+ students to success in competitive exams. With personalized coaching, regular mock tests, and doubt-clearing sessions, we ensure your journey to government job success is smooth and efficient.</p>
+        <div class="mentor-quote">
+          "Success is not final, failure is not fatal: it is the courage to continue that counts." — Learn from the best, achieve your best.
+        </div>
+        <p><strong>Limited Batch Sizes • Personalized Attention • Proven Results</strong></p>
       </div>
     </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <h3>Start Your Success Journey Today</h3>
+    <p>Quality coaching for SSC, RRB, UPSC, Banking, TNPSC & Spoken English</p>
+    <p>📍 Karur, Tamil Nadu | 📞 WhatsApp for inquiry</p>
     
-    <div class="mentor-text">
-      <div class="badge" style="background: rgba(255,153,51,0.1); color: var(--primary);">The Visionary</div>
-      <h3>Tata Raam Kumar</h3>
-      <p>Founder & Owner of TryIT Educations. A Physics graduate turned Education Entrepreneur with a mission to simplify competitive exams for the youth of Karur and beyond.</p>
-      <div class="mentor-quote">"My tenure at major coaching hubs across India taught me one thing: success is 10% talent and 90% the right strategy. I am here to give you that 90%."</div>
-      <a href="https://wa.me/919566698821?text=Hi%2C%20I%20want%20to%20connect%20with%20TryIt%20Educations" class="btn-action" target="_blank" rel="noopener">Direct Connect via WhatsApp</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── ENGLISH COURSES SECTION ── -->
-<section id="english" role="region" aria-label="English courses">
-  <div class="section-title">Professional English Mastery</div>
-  <div class="course-grid">
-    <div class="course-card" style="border-top: 6px solid #2AABEE;">
-      <div class="badge">Elite Communication</div>
-      <h3>Professional Spoken English</h3>
-      <p>Elevate your career with corporate-grade communication and etiquette.</p>
-      <div class="syllabus-box">
-        <ul>
-          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Leadership & Negotiation Skills</li>
-          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Digital Presentation Mastery</li>
-          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Interview Success Simulations</li>
-        </ul>
-      </div>
-      <a href="https://wa.me/919566698821?text=Professional%20English" class="btn-action" style="background: #2AABEE;" target="_blank" rel="noopener">Enquire for Demo</a>
-    </div>
-
-    <div class="course-card" style="border-top: 6px solid #4A5568;">
-      <div class="gov-logo-wrap" style="width:100px; height:100px; margin: 0 auto 20px;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Logo_of_the_Union_Public_Service_Commission.svg/1200px-Logo_of_the_Union_Public_Service_Commission.svg.png" alt="UPSC Logo" class="gov-logo-img" loading="lazy" />
-      </div>
-      <div class="badge">Civil Services Focus</div>
-      <h3>UPSC English & Essay</h3>
-      <p>Master the most critical papers of the UPSC Mains with expert evaluation.</p>
-      <div class="syllabus-box">
-        <ul>
-          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Advanced Essay Drafting</li>
-          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Précis & Argument Building</li>
-          <li><i class="fas fa-chevron-right" aria-hidden="true"></i> Mains Level Vocabulary</li>
-        </ul>
-      </div>
-      <a href="https://wa.me/919566698821?text=UPSC%20English%20Course" class="btn-action" style="background: #4A5568;" target="_blank" rel="noopener">Check Schedule</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── SSC COURSES SECTION ── -->
-<section id="ssc" role="region" aria-label="SSC courses">
-  <div class="section-title">SSC Comprehensive Mastery</div>
-  <div class="course-grid">
-    <div class="course-card" style="border-top: 6px solid #FF9933; width: 100%; max-width: 800px; margin: 0 auto;">
-      <div class="gov-logo-wrap" style="width:120px; height:120px; margin: 0 auto 25px;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Staff_Selection_Commission_Logo.svg/1200px-Staff_Selection_Commission_Logo.svg.png" alt="SSC Logo" class="gov-logo-img" loading="lazy" />
-      </div>
-      <div class="badge">Staff Selection Commission</div>
-      <h3 style="text-align: center;">SSC Comprehensive Training</h3>
-      <p style="text-align: center;">Targeting top-tier posts like CBI Inspector and Income Tax through rigorous training and expert mentorship.</p>
-      <div class="syllabus-box">
-        <ul style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Arithmetic & Advance Maths</li>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> English Comprehension</li>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Logical Reasoning</li>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> General Awareness</li>
-        </ul>
-      </div>
-      <a href="https://wa.me/919566698821?text=SSC%20Course" class="btn-action" style="background: #FF9933; width: 100%; text-align: center;" target="_blank" rel="noopener">Join SSC Batch</a>
-    </div>
-  </div>
-</section>
-
-<!-- ── BANKING & RRB COURSES SECTION ── -->
-<section id="banking-rrb-container" role="region" aria-label="Banking and railway courses">
-  <div class="course-grid">
-    <div id="banking" class="course-card" style="border-top: 6px solid #003366;">
-      <div class="gov-logo-wrap" style="width:110px; height:110px; margin: 0 auto 25px;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/IBPS_Logo.png" alt="IBPS Logo" class="gov-logo-img" loading="lazy" style="width:100%; height:100%; object-fit:contain;" />
-      </div>
-      <div class="badge">Banking & Insurance</div>
-      <h3 style="text-align: center;">IBPS / SBI PO & Clerk</h3>
-      <p style="text-align: center;">Master speed calculations and banking awareness for the financial sector.</p>
-      <div class="syllabus-box">
-        <ul>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Speed Math & Data Interpretation</li>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Advanced Puzzles & Reasoning</li>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Banking Economy & Awareness</li>
-        </ul>
-      </div>
-      <a href="https://wa.me/919566698821?text=Banking%20Batch" class="btn-action" style="background: #003366;" target="_blank" rel="noopener">Join Bank Batch</a>
+    <div class="social-bar">
+      <a href="https://wa.me/919876543210" target="_blank">
+        <div class="social-icon-ring si-wa">
+          <i class="fab fa-whatsapp"></i>
+        </div>
+        <span class="social-label">WhatsApp</span>
+      </a>
+      <a href="https://t.me/tryiteducations" target="_blank">
+        <div class="social-icon-ring si-tg">
+          <i class="fab fa-telegram"></i>
+        </div>
+        <span class="social-label">Telegram</span>
+      </a>
+      <a href="https://youtube.com/@tryiteducations" target="_blank">
+        <div class="social-icon-ring si-yt">
+          <i class="fab fa-youtube"></i>
+        </div>
+        <span class="social-label">YouTube</span>
+      </a>
+      <a href="https://instagram.com/tryiteducations" target="_blank">
+        <div class="social-icon-ring si-ig">
+          <i class="fab fa-instagram"></i>
+        </div>
+        <span class="social-label">Instagram</span>
+      </a>
     </div>
 
-    <div id="rrb" class="course-card" style="border-top: 6px solid #B71C1C;">
-      <div class="gov-logo-wrap" style="width:110px; height:110px; margin: 0 auto 25px;">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Indian_Railways_Samosa_Logo.svg/1200px-Indian_Railways_Samosa_Logo.svg.png" alt="RRB Logo" class="gov-logo-img" loading="lazy" style="width:100%; height:100%; object-fit:contain;" />
-      </div>
-      <div class="badge">Indian Railways</div>
-      <h3 style="text-align: center;">RRB NTPC / ALP / Group D</h3>
-      <p style="text-align: center;">Complete bilingual preparation for Central Railway career success.</p>
-      <div class="syllabus-box">
-        <ul>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> General Science (NCERT-based)</li>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Railway History & General Knowledge</li>
-          <li><i class="fas fa-check-circle" aria-hidden="true"></i> Logical Mathematics & Reasoning</li>
-        </ul>
-      </div>
-      <a href="https://wa.me/919566698821?text=RRB%20Batch" class="btn-action" style="background: #B71C1C;" target="_blank" rel="noopener">Join RRB Batch</a>
-    </div>
-  </div>
-</section>
+    <p style="margin-top: 40px; font-size: 0.9rem; opacity: 0.7;">© 2026 TryIt Educations. All rights reserved. | Empowering Dreams, Building Futures</p>
+  </footer>
 
-<!-- ── FOOTER ── -->
-<footer role="contentinfo">
-  <h3>Connect With Us</h3>
-  
-  <div class="social-bar" role="navigation" aria-label="Social media links">
-    <a href="https://wa.me/919566698821?text=Hi%2C%20I%20want%20to%20join%20TryIt%20Educations" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-      <div class="social-icon-ring si-wa">
-        <i class="fab fa-whatsapp" aria-hidden="true"></i>
-      </div>
-      <span class="social-label">WhatsApp</span>
+  <!-- FLOATING SOCIAL SIDEBAR -->
+  <div class="float-social">
+    <a href="https://wa.me/919876543210" class="fs-wa" target="_blank">
+      <i class="fab fa-whatsapp"></i>
+      <span class="fs-label">WhatsApp</span>
     </a>
-    
-    <a href="https://t.me/s/tryiteducations" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
-      <div class="social-icon-ring si-tg">
-        <i class="fab fa-telegram" aria-hidden="true"></i>
-      </div>
-      <span class="social-label">Telegram</span>
+    <a href="https://t.me/tryiteducations" class="fs-tg" target="_blank">
+      <i class="fab fa-telegram"></i>
+      <span class="fs-label">Telegram</span>
     </a>
-    
-    <a href="https://www.youtube.com/@tryiteducations" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-      <div class="social-icon-ring si-yt">
-        <i class="fab fa-youtube" aria-hidden="true"></i>
-      </div>
-      <span class="social-label">YouTube</span>
+    <a href="https://youtube.com/@tryiteducations" class="fs-yt" target="_blank">
+      <i class="fab fa-youtube"></i>
+      <span class="fs-label">YouTube</span>
     </a>
-    
-    <a href="https://www.instagram.com/tryiteducations" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-      <div class="social-icon-ring si-ig">
-        <i class="fab fa-instagram" aria-hidden="true"></i>
-      </div>
-      <span class="social-label">Instagram</span>
+    <a href="https://instagram.com/tryiteducations" class="fs-ig" target="_blank">
+      <i class="fab fa-instagram"></i>
+      <span class="fs-label">Instagram</span>
     </a>
   </div>
-
-  <p>&copy; 2026 TryIt Educations. All rights reserved.</p>
-  <p>Transforming Tamil Medium students into Central Government officers.</p>
-  <p><strong>Contact:</strong> 9566698821 | Email: info@tryiteducations.com</p>
-</footer>
-
-<!-- Lazy load images script for better performance -->
-<script>
-  if ('loading' in HTMLImageElement.prototype) {
-    // Browser supports lazy loading
-    console.log('Native lazy loading supported');
-  } else {
-    // Fallback for older browsers
-    document.addEventListener('DOMContentLoaded', function() {
-      const images = document.querySelectorAll('img[loading="lazy"]');
-      const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.src;
-            observer.unobserve(img);
-          }
-        });
-      });
-      images.forEach(img => imageObserver.observe(img));
-    });
-  }
-</script>
 
 </body>
 </html>
