@@ -214,6 +214,18 @@ DOCTYPE html>
       border-bottom: 4px solid var(--primary);
       box-shadow: 0 10px 30px rgba(0,0,0,0.15);
     }
+    /* Official Logo Enhancements */
+.gov-logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.12));
+    transition: transform 0.3s ease;
+}
+
+.course-card:hover .gov-logo-img {
+    transform: scale(1.1);
+}
     .logo { font-family: 'Playfair Display', serif; color: white; font-size: 1.8rem; text-decoration: none; font-weight: 900; letter-spacing: -0.5px; }
     .logo span { color: var(--primary); }
     
@@ -844,7 +856,9 @@ DOCTYPE html>
       </div>
       <a href="https://wa.me/919566698821?text=Professional%20English" class="btn-action" style="background: #2AABEE;" target="_blank" rel="noopener">Enquire for Demo</a>
     </div>
-
+<div class="gov-logo-wrap" style="width:100px; height:100px; margin: 0 auto 20px;">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/03/Logo_of_the_Union_Public_Service_Commission_logo.png/220px-Logo_of_the_Union_Public_Service_Commission_logo.png" alt="UPSC" class="gov-logo-img">
+</div>
     <div class="course-card" style="border-top: 6px solid #4A5568;">
       <div class="badge">Civil Services Focus</div>
       <h3>UPSC English & Essay</h3>
@@ -861,22 +875,10 @@ DOCTYPE html>
   </div>
 </section>
 <section id="ssc">
-  <div class="section-title">Central Govt Exam Hub</div>
-  <div class="course-grid" style="display: flex; justify-content: center;">
-    <div class="course-card" style="max-width: 500px; width: 100%; text-align: center; border-top: 6px solid #003366;">
-      
-      <div class="gov-logo-wrap" style="width:130px; height:130px; margin: 0 auto 25px;">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" class="gov-logo-svg">
-          <circle cx="100" cy="100" r="95" fill="#003366" stroke="#FFD700" stroke-width="4"/>
-          <circle cx="100" cy="100" r="85" fill="none" stroke="#FFD700" stroke-width="1" stroke-dasharray="2,2"/>
-          <path d="M100 40 L140 55 V100 C140 135 100 160 100 160 C100 160 60 135 60 100 V55 L100 40Z" fill="#FFD700"/>
-          <path d="M100 45 L135 58 V98 C135 128 100 150 100 150 C100 150 65 128 65 98 V58 L100 45Z" fill="#003366"/>
-          <text x="100" y="95" fill="#FFD700" font-family="Arial" font-weight="bold" font-size="22" text-anchor="middle">CBI</text>
-          <rect x="85" y="105" width="30" height="4" fill="#FF9933" rx="2"/>
-          <text x="100" y="185" fill="white" font-family="Poppins" font-weight="bold" font-size="12" text-anchor="middle">SSC CGL / CHSL</text>
-        </svg>
-      </div>
-
+  <   </div>
+<div class="gov-logo-wrap" style="width:120px; height:120px; margin: 0 auto 25px;">
+    <img src="https://upload.wikimedia.org/wikipedia/en/thumb/0/0b/Staff_Selection_Commission_Logo.svg/1200px-Staff_Selection_Commission_Logo.svg.png" alt="SSC" class="gov-logo-img">
+</div>
       <div class="badge">Staff Selection Commission</div>
       <h3>SSC Comprehensive Mastery</h3>
       <p>Targeting top-tier posts like CBI Inspector, Income Tax, and Excise through rigorous bilingual training.</p>
@@ -925,33 +927,39 @@ DOCTYPE html>
                     <li><i class="fas fa-check-circle"></i> <strong>General Awareness:</strong> Economy & Banking</li>
                 </ul>
             </div>
-            <a href="https://wa.me/919566698821?text=Banking%20Batch" class="btn-action" style="background: #003366;" target="_blank" rel="noopener">Join Bank Batch</a>
+            <div class="course-grid">
+    <div id="banking" class="course-card" style="border-top: 6px solid #003366;">
+        <div class="gov-logo-wrap" style="width:120px; height:120px; margin: 0 auto 25px;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/e/e0/IBPS_Logo.png" alt="IBPS" class="gov-logo-img">
         </div>
+        <div class="badge">Banking & Insurance</div>
+        <h3 style="text-align: center;">IBPS PO / Clerk / SBI</h3>
+        <p style="text-align: center;">Master speed calculation and financial awareness.</p>
+        <div class="syllabus-box">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> <strong>Quant:</strong> Speed Calculation</li>
+                <li><i class="fas fa-check-circle"></i> <strong>Reasoning:</strong> Logical Puzzles</li>
+            </ul>
+        </div>
+        <a href="https://wa.me/919566698821?text=Banking%20Batch" class="btn-action" style="background: #003366;" target="_blank">Join Bank Batch</a>
+    </div>
 
-        <div id="rrb" class="course-card" style="border-top: 6px solid var(--railway-red);">
-            <div class="gov-logo-wrap" style="width:130px; height:130px; margin: 0 auto 25px;">
-                <svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg" class="gov-logo-svg">
-                    <circle cx="60" cy="60" r="58" fill="#B71C1C" stroke="#FFD700" stroke-width="3"/>
-                    <rect x="22" y="54" width="76" height="22" rx="4" fill="white"/>
-                    <circle cx="32" cy="78" r="6" fill="none" stroke="white" stroke-width="2.5"/>
-                    <circle cx="52" cy="78" r="6" fill="none" stroke="white" stroke-width="2.5"/>
-                    <circle cx="72" cy="78" r="6" fill="none" stroke="white" stroke-width="2.5"/>
-                    <line x1="14" y1="86" x2="106" y2="86" stroke="#FFD700" stroke-width="2"/>
-                    <text x="60" y="113" text-anchor="middle" font-family="Arial Black" font-size="10" font-weight="900" fill="#FFD700">RRB</text>
-                </svg>
-            </div>
-            <div class="badge">Indian Railways</div>
-            <h3 style="text-align: center;">RRB NTPC / ALP / Group D</h3>
-            <p style="text-align: center;">Complete preparation for technical and non-technical railway posts.</p>
-            <div class="syllabus-box">
-                <ul>
-                    <li><i class="fas fa-check-circle"></i> <strong>Science:</strong> NCERT Focused</li>
-                    <li><i class="fas fa-check-circle"></i> <strong>General Studies:</strong> Railway History</li>
-                    <li><i class="fas fa-check-circle"></i> <strong>Mathematics:</strong> Shortcut Methods</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/919566698821?text=RRB%20Railway%20Batch" class="btn-action" style="background: var(--railway-red);" target="_blank" rel="noopener">Join RRB Batch</a>
+    <div id="rrb" class="course-card" style="border-top: 6px solid var(--railway-red);">
+        <div class="gov-logo-wrap" style="width:120px; height:120px; margin: 0 auto 25px;">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/4/41/Indian_Railways_Samosa_Logo.svg/1200px-Indian_Railways_Samosa_Logo.svg.png" alt="RRB" class="gov-logo-img">
         </div>
+        <div class="badge">Indian Railways</div>
+        <h3 style="text-align: center;">RRB NTPC / Group D</h3>
+        <p style="text-align: center;">Complete preparation for technical and non-technical posts.</p>
+        <div class="syllabus-box">
+            <ul>
+                <li><i class="fas fa-check-circle"></i> <strong>Science:</strong> NCERT Focused</li>
+                <li><i class="fas fa-check-circle"></i> <strong>GK:</strong> Railway History</li>
+            </ul>
+        </div>
+        <a href="https://wa.me/919566698821?text=RRB%20Batch" class="btn-action" style="background: var(--railway-red);" target="_blank">Join RRB Batch</a>
+    </div>
+</div>
 
     </div>
 </section>
