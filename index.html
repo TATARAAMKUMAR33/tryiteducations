@@ -22,10 +22,10 @@
 
 <!-- External Resources -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-/SlScMvfeQBwt1jzGEHkjGc18NTF+2XYnUyAQhZFTRUwm2IwpdzFhS+uSGjKyPPIvWCc4p6c" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
 
 <!-- Favicon -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%23FF9933'>T</text></svg>" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' font-weight='bold' fill='%23FF9933'>T</text></svg>"/>
 
 <style>
 :root {
@@ -45,909 +45,83 @@
 --affairs-purple: #7C3AED;
 --editorial-teal: #0D9488;
 }
-
-* { 
-box-sizing: border-box; 
-margin: 0; 
-padding: 0; 
-}
-
-html {
-scroll-behavior: smooth;
-}
-
-body { 
-font-family: 'Poppins', sans-serif; 
-background: #f0f2f5; 
-color: var(--text-main); 
-line-height: 1.6; 
-}
-
-/* ── KEYFRAME ANIMATIONS ── */
-@keyframes gradientBG {
-0% { background-position: 0% 50%; }
-50% { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
-}
-
-@keyframes tickerScroll {
-0%   { background-position: 0% 50%; }
-50%  { background-position: 100% 50%; }
-100% { background-position: 0% 50%; }
-}
-
-@keyframes pulse-dot {
-0%, 100% { opacity: 1; transform: scale(1); }
-50%       { opacity: 0.4; transform: scale(0.7); }
-}
-
-@keyframes marquee {
-0%   { transform: translateX(100vw); }
-100% { transform: translateX(-100%); }
-}
-
-@keyframes slideInSocial {
-from { opacity: 0; transform: translateY(-50%) translateX(80px); }
-to   { opacity: 1; transform: translateY(-50%) translateX(0); }
-}
-
-@keyframes highlightPulse {
-0%, 100% { background-color: rgba(255, 153, 51, 0.1); }
-50% { background-color: rgba(255, 153, 51, 0.25); }
-}
-
-/* ── NOTIFICATION TICKER ── */
-.notification-ticker {
-background: linear-gradient(270deg, #0D1B3E, #1a1060, #B71C1C, #FF6F00, #0D1B3E);
-background-size: 400% 400%;
-animation: tickerScroll 8s ease infinite;
-color: #ffffff;
-padding: 10px 5%;
-font-size: 0.85rem;
-font-weight: 700;
-text-align: center;
-border-bottom: 2px solid #FF9933;
-position: relative;
-z-index: 1001;
-overflow: hidden;
-box-shadow: 0 3px 18px rgba(255,153,51,0.25);
-display: flex;
-align-items: center;
-justify-content: center;
-gap: 14px;
-}
-
-.ticker-dot {
-width: 9px;
-height: 9px;
-background: #4ade80;
-border-radius: 50%;
-flex-shrink: 0;
-box-shadow: 0 0 8px #4ade80;
-animation: pulse-dot 1.2s ease-in-out infinite;
-}
-
-.ticker-track {
-overflow: hidden;
-flex: 1;
-white-space: nowrap;
-}
-
-.ticker-inner {
-display: inline-block;
-animation: marquee 22s linear infinite;
-letter-spacing: 0.5px;
-}
-
-.ticker-inner:hover { 
-animation-play-state: paused; 
-}
-
-.ticker-sep {
-color: #FF9933;
-margin: 0 18px;
-font-size: 1rem;
-}
-
-.notification-ticker a {
-color: #FFD700;
-text-decoration: none;
-font-weight: 800;
-border: 1.5px solid #FFD700;
-border-radius: 6px;
-padding: 3px 10px;
-font-size: 0.75rem;
-letter-spacing: 0.5px;
-transition: 0.25s;
-flex-shrink: 0;
-white-space: nowrap;
-}
-
-.notification-ticker a:hover {
-background: #FFD700;
-color: #0D1B3E;
-}
-
-/* ── SECONDARY NAV BAR ── */
-.secondary-nav {
-background: #ffffff;
-border-bottom: 2px solid #edf0f5;
-padding: 0 8%;
-display: flex;
-align-items: center;
-gap: 0;
-position: sticky;
-top: 0;
-z-index: 999;
-box-shadow: 0 3px 12px rgba(13,27,62,0.07);
-overflow-x: auto;
-scrollbar-width: none;
-}
-
-.secondary-nav::-webkit-scrollbar { 
-display: none; 
-}
-
-.secondary-nav a {
-display: flex;
-align-items: center;
-gap: 7px;
-color: var(--text-muted);
-text-decoration: none;
-font-size: 0.78rem;
-font-weight: 600;
-text-transform: uppercase;
-letter-spacing: 0.8px;
-padding: 14px 20px;
-white-space: nowrap;
-border-bottom: 3px solid transparent;
-transition: all 0.25s ease;
-position: relative;
-}
-
-.secondary-nav a i {
-font-size: 0.85rem;
-color: var(--primary);
-transition: transform 0.25s ease;
-}
-
-.secondary-nav a:hover {
-color: var(--nav-blue);
-border-bottom-color: var(--primary);
-background: #fffaf5;
-}
-
-.secondary-nav a:hover i { 
-transform: scale(1.2); 
-}
-
-.secondary-nav a.has-badge::after {
-content: 'NEW';
-background: #EF4444;
-color: white;
-font-size: 0.58rem;
-font-weight: 800;
-padding: 1px 6px;
-border-radius: 100px;
-letter-spacing: 0.5px;
-margin-left: 2px;
-line-height: 1.6;
-}
-
-.secondary-nav .nav-divider {
-width: 1px;
-height: 18px;
-background: #e2e8f0;
-flex-shrink: 0;
-}
-
-.secondary-nav .nav-cta {
-margin-left: auto;
-background: var(--primary);
-color: white !important;
-border-radius: 8px;
-padding: 8px 18px !important;
-border-bottom: none !important;
-font-size: 0.75rem !important;
-box-shadow: 0 4px 12px rgba(255,153,51,0.25);
-transition: background 0.3s, transform 0.2s !important;
-}
-
-.secondary-nav .nav-cta:hover {
-background: var(--primary-dark) !important;
-transform: scale(1.04) !important;
-border-bottom: none !important;
-}
-
-.secondary-nav .nav-cta i { 
-color: white !important; 
-}
-
-/* ── PRIMARY NAV ── */
-nav { 
-background: var(--nav-blue); 
-padding: 18px 8%; 
-display: flex; 
-justify-content: space-between; 
-align-items: center; 
-position: sticky; 
-top: 47px;
-z-index: 1000; 
-border-bottom: 4px solid var(--primary);
-box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-}
-
-nav .logo {
-font-size: 1.5rem;
-font-weight: 900;
-color: white;
-text-decoration: none;
-font-family: 'Playfair Display', serif;
-transition: color 0.3s;
-white-space: nowrap;
-display: flex;
-align-items: center;
-gap: 4px;
-}
-
-nav .logo span {
-color: var(--primary);
-}
-
-nav .logo .try {
-color: white;
-}
-
-nav .logo .it {
-color: var(--primary);
-}
-
-nav .logo .educations {
-color: white;
-font-size: 0.85rem;
-letter-spacing: 1px;
-}
-
-nav .logo:hover {
-color: var(--primary);
-}
-
-.nav-links {
-display: flex;
-gap: 30px;
-}
-
-.nav-links a {
-color: white;
-text-decoration: none;
-font-weight: 600;
-transition: color 0.3s;
-position: relative;
-}
-
-.nav-links a:hover {
-color: var(--primary);
-}
-
-.nav-links a::after {
-content: '';
-position: absolute;
-bottom: -5px;
-left: 0;
-width: 0;
-height: 2px;
-background: var(--primary);
-transition: width 0.3s;
-}
-
-.nav-links a:hover::after {
-width: 100%;
-}
-
-/* ── HERO SECTION ── */
-.hero { 
-background: linear-gradient(-45deg, #070D1F, #0D1B3E, #1A365D, #070D1F);
-background-size: 400% 400%;
-animation: gradientBG 15s ease infinite;
-color: white; 
-padding: 120px 8% 100px; 
-text-align: center; 
-position: relative;
-}
-
-.hero h1 { 
-font-family: 'Playfair Display', serif; 
-font-size: clamp(2.8rem, 7vw, 4.5rem); 
-line-height: 1.1; 
-margin-bottom: 25px; 
-font-weight: 900; 
-}
-
-.hero p { 
-font-size: 1.2rem; 
-max-width: 700px; 
-margin: 0 auto; 
-opacity: 0.85; 
-font-weight: 300; 
-}
-
-/* ── TRUST BANNER ── */
-.trust-banner {
-background: var(--glass);
-backdrop-filter: blur(10px);
-border-radius: 24px;
-padding: 60px 45px;
-margin: -60px auto 60px;
-max-width: 1100px;
-box-shadow: 0 30px 60px rgba(0,0,0,0.12);
-border: 1px solid rgba(255,255,255,0.4);
-text-align: center;
-position: relative;
-z-index: 20;
-}
-
-.trust-banner h2 { 
-font-family: 'Playfair Display', serif; 
-font-size: 2.2rem; 
-color: var(--nav-blue); 
-margin-bottom: 25px; 
-}
-
-.trust-banner span { 
-background: linear-gradient(90deg, #FF9933, #E68A00); 
--webkit-background-clip: text; 
--webkit-text-fill-color: transparent; 
-background-clip: text;
-font-weight: 800; 
-}
-
-.trust-banner p {
-color: var(--text-muted);
-font-size: 1rem;
-margin-bottom: 20px;
-}
-
-/* ── HIGHLIGHTED TAGLINE ── */
-.highlight-tagline {
-background: linear-gradient(120deg, rgba(255, 153, 51, 0.15), rgba(255, 153, 51, 0.3), rgba(255, 153, 51, 0.15));
-border: 2px solid var(--primary);
-border-radius: 16px;
-padding: 25px 30px;
-margin: 20px 0;
-font-size: 1.15rem;
-font-weight: 700;
-color: var(--nav-blue);
-animation: highlightPulse 3s ease-in-out infinite;
-display: flex;
-flex-direction: column;
-gap: 12px;
-align-items: center;
-}
-
-.highlight-tagline .english {
-display: flex;
-align-items: center;
-gap: 12px;
-}
-
-.highlight-tagline .english i {
-color: var(--primary);
-font-size: 1.5rem;
-}
-
-.highlight-tagline .tamil {
-display: flex;
-align-items: center;
-gap: 12px;
-font-size: 1.1rem;
-color: #DC2626;
-font-weight: 800;
-}
-
-.highlight-tagline .tamil i {
-color: #DC2626;
-font-size: 1.5rem;
-}
-
-/* ── SECTIONS ── */
-section { 
-padding: 80px 8%; 
-max-width: 1300px; 
-margin: 0 auto; 
-}
-
-.section-title { 
-font-family: 'Playfair Display', serif; 
-font-size: 3rem; 
-color: var(--nav-blue); 
-margin-bottom: 60px; 
-text-align: center; 
-position: relative; 
-}
-
-.section-title::after { 
-content: ''; 
-display: block; 
-width: 80px; 
-height: 5px; 
-background: var(--primary); 
-margin: 15px auto 0; 
-border-radius: 10px; 
-}
-
-/* ── COURSE GRID & CARDS (ENHANCED) ── */
-.course-grid { 
-display: grid; 
-grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-gap: 40px;
-place-items: stretch;
-}
-
-.course-card { 
-background: var(--glass);
-border-radius: 28px;
-padding: 50px 45px;
-border: 2px solid rgba(255,255,255,0.6);
-transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-position: relative;
-display: flex;
-flex-direction: column;
-box-shadow: var(--card-shadow);
-overflow: hidden;
-min-height: 540px;
-}
-
-.course-card::before {
-content: '';
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-height: 6px;
-background: linear-gradient(90deg, var(--primary), transparent);
-transform: scaleX(0);
-transform-origin: left;
-transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
-}
-
-.course-card:hover::before {
-transform: scaleX(1);
-}
-
-.course-card:hover { 
-transform: translateY(-20px) scale(1.02); 
-box-shadow: 0 50px 100px rgba(0,0,0,0.15); 
-border-color: var(--primary); 
-}
-
-.course-card.ssc-card {
-background: linear-gradient(135deg, rgba(30, 64, 175, 0.08), rgba(255, 255, 255, 0.95));
-border-left: 6px solid var(--ssc-blue);
-}
-
-.course-card.rrb-card {
-background: linear-gradient(135deg, rgba(220, 38, 38, 0.08), rgba(255, 255, 255, 0.95));
-border-left: 6px solid var(--rrb-red);
-}
-
-.course-card.banking-card {
-background: linear-gradient(135deg, rgba(5, 150, 105, 0.08), rgba(255, 255, 255, 0.95));
-border-left: 6px solid var(--banking-green);
-}
-
-.course-card.affairs-card {
-background: linear-gradient(135deg, rgba(124, 58, 237, 0.08), rgba(255, 255, 255, 0.95));
-border-left: 6px solid var(--affairs-purple);
-}
-
-.course-card.editorial-card {
-background: linear-gradient(135deg, rgba(13, 148, 136, 0.08), rgba(255, 255, 255, 0.95));
-border-left: 6px solid var(--editorial-teal);
-}
-
-.course-card h3 {
-color: var(--nav-blue);
-font-family: 'Playfair Display', serif;
-font-size: 2rem;
-margin: 20px 0 15px;
-font-weight: 900;
-}
-
-.course-card p {
-color: var(--text-muted);
-margin-bottom: 25px;
-flex-grow: 1;
-font-size: 0.95rem;
-line-height: 1.7;
-}
-
-.badge { 
-background: #FFF7ED; 
-color: #C2410C; 
-padding: 8px 20px; 
-border-radius: 100px; 
-font-size: 0.78rem; 
-font-weight: 800; 
-margin-bottom: 25px; 
-align-self: flex-start; 
-text-transform: uppercase;
-letter-spacing: 1px;
-}
-
-.badge.ssc-badge { background: rgba(30, 64, 175, 0.15); color: var(--ssc-blue); }
-.badge.rrb-badge { background: rgba(220, 38, 38, 0.15); color: var(--rrb-red); }
-.badge.banking-badge { background: rgba(5, 150, 105, 0.15); color: var(--banking-green); }
-.badge.affairs-badge { background: rgba(124, 58, 237, 0.15); color: var(--affairs-purple); }
-.badge.editorial-badge { background: rgba(13, 148, 136, 0.15); color: var(--editorial-teal); }
-
-/* ── LOGO CONTAINER (FIXED) ── */
+.social-icon-ring i { color: #fff !important; font-size: 2.2rem; display:inline-block; }
+/* fix for social icons always visible on colored bg*/
+.float-social a i, .social-bar a i {
+  color: #fff !important;
+  opacity: 1 !important;
+}
+.gov-logo-img { display:none !important; }
 .gov-logo-wrap {
-width: 110px;
-height: 110px;
-margin: 0 auto 35px;
-filter: drop-shadow(0 8px 20px rgba(0,0,0,0.15));
-transition: transform 0.5s cubic-bezier(0.175,0.885,0.32,1.275), filter 0.4s ease;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
-background: rgba(255, 255, 255, 0.7);
-border-radius: 50%;
-border: 3px solid rgba(255, 153, 51, 0.3);
-flex-shrink: 0;
+  background: linear-gradient(135deg, #fffae5 70%, #ffe9d1 100%); 
+  border: 2px dashed var(--primary); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
-.gov-logo-wrap:hover {
-transform: scale(1.15) rotate(5deg);
-filter: drop-shadow(0 12px 32px rgba(0,0,0,0.25));
-border-color: var(--primary);
+.gov-logo-text {
+  font-size:2.5rem;
+  font-weight:900;
+  color:var(--nav-blue);
+  font-family: 'Poppins',sans-serif;
+  letter-spacing:1px;
+  text-align:center;
 }
-
-.gov-logo-img {
-width: 85%;
-height: 85%;
-object-fit: contain;
-filter: drop-shadow(0 3px 8px rgba(0,0,0,0.15));
-transition: transform 0.4s cubic-bezier(0.175,0.885,0.32,1.275);
-display: block;
+.course-card.ssc-card .gov-logo-text { color: var(--ssc-blue); }
+.course-card.rrb-card .gov-logo-text { color: var(--rrb-red); }
+.course-card.banking-card .gov-logo-text { color: var(--banking-green); }
+.course-card.affairs-card .gov-logo-text { color: var(--affairs-purple); }
+.course-card.editorial-card .gov-logo-text { color: var(--editorial-teal); }
+/* Additional style for highlight mentor section*/
+.mentor-highlight {
+  background: linear-gradient(105deg,#fff,#ecf6ef 80%,#e6eaff 120%);
+  border: 2.5px solid var(--primary);
+  border-radius: 28px;
+  box-shadow:0 14px 40px rgba(0,0,0,0.10);
+  padding:38px 18px 36px 18px;
+  margin: 60px 0 40px 0;
+  text-align: center;
+  max-width:725px;
+  margin-left: auto;
+  margin-right: auto;
 }
-
-.course-card:hover .gov-logo-img {
-transform: scale(1.12) rotate(-3deg);
+.mentor-highlight h2 {
+  font-family:'Playfair Display',serif;font-size:2.35rem;color:var(--nav-blue);margin-bottom:8px;font-weight:800;letter-spacing: 0.5px;
 }
-
-/* ── SYLLABUS BOX ── */
-.syllabus-box {
-background: #f8fafc;
-border-radius: 18px;
-padding: 25px;
-margin: 30px 0;
-border-left: 5px solid var(--primary);
+.mentor-highlight .mentor-row {
+  display:flex;flex-direction:row;justify-content:center;gap:32px;flex-wrap:wrap;margin-top:25px;
 }
-
-.syllabus-box ul { 
-list-style: none; 
+.mentor-card {
+  background:rgba(255,255,255,0.953);border-radius:18px;padding:22px 18px;min-width:260px;max-width:320px;box-shadow:0 8px 26px rgba(30,64,175,0.08); border:1.5px solid #e5e7eb;
+display:flex;flex-direction:column;align-items:center;margin:4px 0;
 }
-
-.syllabus-box li { 
-margin-bottom: 12px; 
-font-size: 0.95rem; 
-color: var(--text-muted); 
-display: flex; 
-align-items: flex-start; 
-gap: 12px;
+.mentor-name {
+  color:var(--primary-dark);font-size:1.17rem;font-weight:800;margin-bottom:2px;letter-spacing:.3px;
 }
-
-.syllabus-box li i { 
-color: var(--primary); 
-margin-top: 4px;
-font-size: 0.8rem;
-flex-shrink: 0;
+.mentor-title {
+  font-size:1.02rem;color:var(--nav-blue);margin-bottom:4px;font-weight:600;
 }
-
-/* ── PDF/GDRIVE SECTION ── */
-.resource-section {
-background: linear-gradient(135deg, rgba(255, 153, 51, 0.08), rgba(255, 255, 255, 0.95));
-border-radius: 18px;
-padding: 35px;
-margin: 30px 0;
-border: 2px solid rgba(255, 153, 51, 0.2);
+.mentor-desc {
+  font-size:.97rem;color:var(--text-muted);line-height:1.6;
 }
-
-.resource-section h4 {
-color: var(--nav-blue);
-font-size: 1.2rem;
-margin-bottom: 20px;
-font-weight: 700;
-display: flex;
-align-items: center;
-gap: 10px;
+.mentor-cofound { color: #FF7C28; font-weight: 700; font-size:0.93rem;margin:5px 0 0 0;letter-spacing:.4px;}
+/* Section for spoken english */
+.professional-english {
+  padding-top:40px;padding-bottom:32px;max-width:980px;margin:0 auto 36px auto;
 }
-
-.resource-section h4 i {
-color: var(--primary);
+.professional-english {
+  background:linear-gradient(90deg,#e4fadf 10%,#f0fff9 100%);
+  border:2px solid #63e6be44;
+  border-radius:26px;
+  box-shadow:0 4px 24px rgba(37,211,102,0.10);
 }
-
-.resource-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-gap: 15px;
-}
-
-.resource-item {
-display: flex;
-align-items: center;
-gap: 12px;
-padding: 14px 16px;
-background: white;
-border-radius: 12px;
-border: 2px solid rgba(255, 153, 51, 0.2);
-transition: all 0.3s ease;
-cursor: pointer;
-text-decoration: none;
-color: var(--nav-blue);
-}
-
-.resource-item:hover {
-background: rgba(255, 153, 51, 0.15);
-border-color: var(--primary);
-transform: translateY(-5px);
-box-shadow: 0 8px 20px rgba(255, 153, 51, 0.2);
-}
-
-.resource-icon {
-width: 45px;
-height: 45px;
-background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-border-radius: 10px;
-display: flex;
-align-items: center;
-justify-content: center;
-color: white;
-font-size: 1.5rem;
-flex-shrink: 0;
-}
-
-.resource-name {
-font-size: 0.95rem;
-font-weight: 700;
-color: var(--nav-blue);
-line-height: 1.3;
-}
-
-/* ── BUTTONS ── */
-.btn-action { 
-display: inline-flex;
-align-items: center;
-gap: 8px;
-background: var(--whatsapp-green); 
-color: white; 
-padding: 16px 35px; 
-border-radius: 14px; 
-text-decoration: none; 
-font-weight: 700; 
-text-align: center;
-transition: 0.4s;
-border: none;
-cursor: pointer;
-box-shadow: 0 10px 20px rgba(37, 211, 102, 0.2);
-align-self: flex-start;
-margin-top: auto;
-}
-
-.btn-action:hover { 
-background: #1eb954; 
-transform: scale(1.05); 
-box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); 
-}
-
-/* ── FOOTER ── */
-footer { 
-background: var(--bg-dark); 
-color: #94A3B8; 
-padding: 80px 8% 40px; 
-text-align: center; 
-}
-
-footer h3 {
-color: var(--primary);
-font-family: 'Playfair Display', serif;
-font-size: 2rem;
-margin-bottom: 30px;
-}
-
-footer p {
-margin-bottom: 20px;
-line-height: 1.8;
-}
-
-/* ── SOCIAL BAR (CENTER) ── */
-.social-bar {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 20px;
-flex-wrap: wrap;
-margin-bottom: 50px;
-}
-
-.social-bar a {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 8px;
-text-decoration: none;
-transition: transform 0.35s cubic-bezier(0.175,0.885,0.32,1.275);
-}
-
-.social-bar a:hover { 
-transform: translateY(-8px) scale(1.08); 
-}
-
-.social-icon-ring {
-width: 64px;
-height: 64px;
-border-radius: 20px;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.75rem;
-color: white;
-position: relative;
-box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-transition: box-shadow 0.3s;
-}
-
-.social-bar a:hover .social-icon-ring {
-box-shadow: 0 16px 40px rgba(0,0,0,0.5);
-}
-
-.si-wa  { background: linear-gradient(135deg, #25D366, #128C7E); }
-.si-tg  { background: linear-gradient(135deg, #40B3E0, #2AABEE, #1A6F9F); }
-.si-yt  { background: linear-gradient(135deg, #FF0000, #CC0000); }
-.si-ig  { background: linear-gradient(135deg,#405DE6,#5851DB,#833AB4,#C13584,#E1306C,#FD1D1D,#F56040,#F77737,#FCAF45,#FFDC80); }
-
-.social-icon-ring::after {
-content: '';
-position: absolute;
-inset: 0;
-border-radius: inherit;
-background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 60%);
-opacity: 0;
-transition: opacity 0.3s;
-}
-
-.social-bar a:hover .social-icon-ring::after { 
-opacity: 1; 
-}
-
-.social-label {
-font-size: 0.7rem;
-font-weight: 700;
-letter-spacing: 1px;
-text-transform: uppercase;
-color: #94A3B8;
-transition: color 0.3s;
-}
-
-.social-bar a:hover .social-label { 
-color: white; 
-}
-
-/* ── FLOATING SOCIAL SIDEBAR (DESKTOP VISIBLE) ── */
-.float-social {
-position: fixed;
-right: 0;
-top: 50%;
-transform: translateY(-50%);
-z-index: 9999;
-display: flex;
-flex-direction: column;
-gap: 5px;
-padding: 12px 0;
-animation: slideInSocial 0.7s 0.8s both ease-out;
-visibility: visible;
-opacity: 1;
-}
-
-.float-social a {
-display: flex;
-align-items: center;
-gap: 11px;
-color: white;
-text-decoration: none;
-padding: 12px 16px 12px 16px;
-border-radius: 14px 0 0 14px;
-width: 56px;
-overflow: hidden;
-white-space: nowrap;
-transition: width 0.38s cubic-bezier(0.175,0.885,0.32,1.275),
-box-shadow 0.3s, transform 0.3s;
-box-shadow: -5px 5px 22px rgba(0,0,0,0.4);
-position: relative;
-}
-
-.float-social a:hover {
-width: 178px;
-transform: translateX(-4px);
-box-shadow: -8px 8px 32px rgba(0,0,0,0.5);
-}
-
-.float-social a i {
-font-size: 1.3rem;
-flex-shrink: 0;
-width: 24px;
-text-align: center;
-filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-}
-
-.fs-label {
-font-size: 0.76rem;
-font-weight: 700;
-font-family: 'Poppins', sans-serif;
-letter-spacing: 0.4px;
-opacity: 0;
-transform: translateX(12px);
-transition: opacity 0.22s 0.1s, transform 0.22s 0.1s;
-}
-
-.float-social a:hover .fs-label { 
-opacity: 1; 
-transform: translateX(0); 
-}
-
-.float-social a::after {
-content: '';
-position: absolute;
-left: 0; 
-top: 20%; 
-bottom: 20%;
-width: 3px;
-border-radius: 0 3px 3px 0;
-background: rgba(255,255,255,0.5);
-}
-
-.float-social a.fs-wa { background: linear-gradient(160deg, #2FD974 0%, #25D366 40%, #128C7E 100%); }
-.float-social a.fs-tg { background: linear-gradient(160deg, #64D2F0 0%, #2AABEE 50%, #1A7BB9 100%); }
-.float-social a.fs-yt { background: linear-gradient(160deg, #FF6B6B 0%, #FF0000 50%, #9B0000 100%); }
-.float-social a.fs-ig { background: linear-gradient(160deg, #FCAF45, #F77737, #F56040, #E1306C, #C13584, #833AB4, #405DE6); }
-
-@media (max-width: 768px) { 
-.float-social { 
-display: none;
-}
-
-.course-grid {
-grid-template-columns: 1fr;
-}
-
-nav .nav-links {
-gap: 15px;
-font-size: 0.9rem;
-}
-
-nav .logo {
-font-size: 1.2rem;
-}
-
-nav .logo .educations {
-display: none;
-}
-
-section {
-padding: 60px 5%;
-}
-
-.highlight-tagline {
-flex-direction: column;
-font-size: 1rem;
-padding: 20px 25px;
-}
-
-.highlight-tagline .english,
-.highlight-tagline .tamil {
-font-size: 0.95rem;
-}
+.professional-english h2 {font-size:2.2rem;color:var(--banking-green);font-family:'Playfair Display',serif;margin-bottom: 16px;}
+.professional-english p {font-size:1.06rem;color:var(--text-main);margin-bottom:20px;}
+.professional-english .btn-action {background:var(--whatsapp-green);font-size:1.12rem;font-weight:700;}
+.professional-english .btn-action:hover {background:#249c4e;}
+@media (max-width:650px) {
+  .mentor-row {flex-direction:column;gap:22px;}
+  .mentor-card {min-width:90%;max-width:98%;}
 }
 </style>
 </head>
@@ -955,332 +129,182 @@ font-size: 0.95rem;
 
 <!-- NOTIFICATION TICKER -->
 <div class="notification-ticker">
-<div class="ticker-dot"></div>
-<div class="ticker-track">
-<div class="ticker-inner">
-🎯 Enroll Now for SSC, Banking & RRB Exams <span class="ticker-sep">•</span> Get Expert Bilingual Coaching in Karur <span class="ticker-sep">•</span> Master English Speaking & Competitive Exam Prep
-</div>
-</div>
-<a href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20more%20information" target="_blank">CHAT NOW</a>
+  <div class="ticker-dot"></div>
+  <div class="ticker-track">
+    <div class="ticker-inner">
+      🎯 Enroll Now for SSC, Banking & RRB Exams <span class="ticker-sep">•</span> Get Expert Bilingual Coaching in Karur <span class="ticker-sep">•</span> Master English Speaking & Competitive Exams <span class="ticker-sep">•</span> <b>Connect Instantly</b> <span class="ticker-sep">•</span> Updates & Materials!
+    </div>
+  </div>
+  <a href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20more%20information" target="_blank">CHAT NOW</a>
 </div>
 
 <!-- SECONDARY NAVIGATION -->
 <div class="secondary-nav">
-<a href="#courses"><i class="fas fa-book"></i> Courses</a>
-<a href="#current-affairs" class="has-badge"><i class="fas fa-newspaper"></i> Current Affairs</a>
-<a href="#editorials"><i class="fas fa-pen-fancy"></i> Editorials</a>
-<a href="#about"><i class="fas fa-info-circle"></i> About</a>
-<div class="nav-divider"></div>
-<a class="nav-cta" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20am%20interested%20to%20know%20more" target="_blank"><i class="fas fa-phone"></i> CONNECT</a>
+  <a href="#courses"><i class="fas fa-book"></i> Courses</a>
+  <a href="https://t.me/tryiteducations" class="has-badge" target="_blank"><i class="fab fa-telegram-plane"></i> Current Affairs</a>
+  <a href="https://t.me/tryiteducations" target="_blank"><i class="fas fa-pen-fancy"></i> Editorials</a>
+  <a href="#about"><i class="fas fa-info-circle"></i> About</a>
+  <div class="nav-divider"></div>
+  <a class="nav-cta" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20am%20interested%20to%20know%20more" target="_blank"><i class="fas fa-phone"></i> CONNECT</a>
 </div>
 
 <!-- PRIMARY NAVIGATION -->
 <nav>
-<a class="logo" href="#home">
-<span class="try">Try</span><span class="it">IT</span><span class="Educations">Educations</span>
-</a>
-<div class="nav-links">
-<a href="#courses">Courses</a>
-<a href="#current-affairs">Current Affairs</a>
-<a href="#editorials">Editorials</a>
-<a href="#contact">Contact</a>
-</div>
+  <a class="logo" href="#home">
+    <span class="try">Try</span><span class="it">IT</span><span class="Educations">Educations</span>
+  </a>
+  <div class="nav-links">
+    <a href="#courses">Courses</a>
+    <a href="https://t.me/tryiteducations" target="_blank">Current Affairs</a>
+    <a href="https://t.me/tryiteducations" target="_blank">Editorials</a>
+    <a href="#about">Contact</a>
+  </div>
 </nav>
 
 <!-- HERO SECTION -->
 <section class="hero">
-<h1>Transform Your Future in Government Exams</h1>
-<p>Master SSC, Banking & RRB with expert bilingual coaching. Achieve your dream of becoming a Central Government officer.</p>
+  <h1>Transform Your Future in Government Exams</h1>
+  <p>Master SSC, Banking & RRB with expert bilingual coaching. Achieve your dream of becoming a Central Government officer.</p>
 </section>
 
 <!-- TRUST BANNER WITH HIGHLIGHTED TAGLINE -->
 <div class="trust-banner">
-<h2>Join <span>1000+ Successful Students</span></h2>
-<p>Learn from certified mentors with proven track record of success. Bilingual support in English & Tamil.</p>
-
-<!-- HIGHLIGHTED TAGLINE -->
-<div class="highlight-tagline">
-<div class="english">
-<i class="fas fa-star"></i>
-<span>You Can Easily Crack All Competitive Exams From Tamil Medium</span>
-<i class="fas fa-star"></i>
-</div>
-<div style="font-size: 0.9rem; color: #4A5568; margin: 5px 0;">We are Teaching From Tamil Nadu</div>
-<div class="tamil">
-<i class="fas fa-check-double"></i>
-<span>"தாய்மொழியில் பயில்வோம்; தரணி போற்றும் அரசுப்பணியை வெல்வோம்!"</span>
-<i class="fas fa-check-double"></i>
-</div>
+  <h2>Join <span>1000+ Successful Students</span></h2>
+  <p>Learn from certified mentors with proven track record of success. Bilingual support in English & Tamil.</p>
+  <div class="highlight-tagline">
+    <div class="english"><i class="fas fa-graduation-cap"></i> "Transforming Tamil Medium Aspirants into Successful Central Government Officers"</div>
+    <div class="tamil"><i class="fas fa-flag"></i> தமிழ் மாணவர்களுக்கு இரட்டை மொழிக் கல்வி, மாநிலத் தேர்வுகளில் வெற்றிக்கான நிச்சய வழிகாட்டு வகுப்புகள்</div>
+  </div>
 </div>
 
-</div>
+<!-- MENTOR SECTION -->
+<section class="mentor-highlight">
+  <h2>Meet Our Mentors & Co-Founders</h2>
+  <div class="mentor-row">
+    <div class="mentor-card">
+      <span class="mentor-name">Dr. Tharsni Manivannan</span>
+      <span class="mentor-title">Ph.D. Linguistics (English), EFL University Hyderabad</span>
+      <div class="mentor-desc">Renowned expert in bilingual English coaching <br> Specialist in competitive exam readiness.</div>
+      <div class="mentor-cofound">Co-founder | TryIt Educations</div>
+    </div>
+    <div class="mentor-card">
+      <span class="mentor-name">Tata Raam Kumar</span>
+      <span class="mentor-title">EdTech Specialist & Senior SSC Mentor</span>
+      <div class="mentor-desc">7+ yrs experience guiding aspirants in SSC, Railway, and Banking exams. <br> Leading educator and trusted content writer.</div>
+      <div class="mentor-cofound">Co-founder | TryIt Educations</div>
+    </div>
+  </div>
+</section>
 
-<!-- COURSES SECTION -->
+<!-- SPOKEN ENGLISH FOR PROFESSIONALS SECTION -->
+<section class="professional-english" id="spoken-english-professionals">
+  <h2>Spoken English for Working Professionals</h2>
+  <p>Designed for corporate employees, HRs, Techies, & government job holders. <br> Gain confidence in meetings, interviews, presentations, and daily office communication.<br> Weekday & weekend batches | Online & Offline | Real-world scenarios.</p>
+  <a class="btn-action" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20to%20enquire%20about%20the%20Spoken%20English%20for%20Professionals%20course" target="_blank"><i class="fab fa-whatsapp"></i> Enquire via WhatsApp</a>
+</section>
+
+<!-- MAIN COURSES SECTION -->
 <section id="courses">
-<h2 class="section-title">Our Premium Courses</h2>
-<div class="course-grid">
-
-<!-- SSC CARD -->
-<div class="course-card ssc-card">
-<div class="gov-logo-wrap">
-<svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<circle cx="50" cy="50" r="45" fill="none" stroke="#1E40AF" stroke-width="2"/>
-<text x="50" y="55" text-anchor="middle" font-size="24" font-weight="bold" fill="#1E40AF">SSC</text>
-</svg>
-</div>
-<span class="badge ssc-badge">Staff Selection Commission</span>
-<h3>SSC Mastery</h3>
-<p>Comprehensive preparation for SSC CGL, CHSL, MTS & other exams. Expert guidance on quantitative aptitude, reasoning & English.</p>
-
-<div class="syllabus-box">
-<ul>
-<li><i class="fas fa-check-circle"></i> Quantitative Aptitude Mastery</li>
-<li><i class="fas fa-check-circle"></i> General Reasoning & Logic</li>
-<li><i class="fas fa-check-circle"></i> Advanced English Grammar</li>
-<li><i class="fas fa-check-circle"></i> General Awareness Update</li>
-<li><i class="fas fa-check-circle"></i> Mock Tests & Analysis</li>
-</ul>
-</div>
-
-<a class="btn-action" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20to%20enroll%20in%20SSC%20Mastery%20course" target="_blank">
-<i class="fas fa-whatsapp"></i> Enroll Now
-</a>
-</div>
-
-<!-- BANKING CARD -->
-<div class="course-card banking-card">
-<div class="gov-logo-wrap">
-<svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<rect x="15" y="20" width="70" height="60" rx="5" fill="none" stroke="#059669" stroke-width="2"/>
-<line x1="25" y1="30" x2="75" y2="30" stroke="#059669" stroke-width="1.5"/>
-<line x1="25" y1="45" x2="75" y2="45" stroke="#059669" stroke-width="1.5"/>
-<circle cx="40" cy="65" r="4" fill="#059669"/>
-<circle cx="60" cy="65" r="4" fill="#059669"/>
-</svg>
-</div>
-<span class="badge banking-badge">IBPS & SBI Banking</span>
-<h3>Banking Excellence</h3>
-<p>Master IBPS PO, IBPS Clerk, SBI & other banking exams. Complete training in financial awareness & banking operations.</p>
-
-<div class="syllabus-box">
-<ul>
-<li><i class="fas fa-check-circle"></i> Banking Awareness Update</li>
-<li><i class="fas fa-check-circle"></i> Numerical Ability Advanced</li>
-<li><i class="fas fa-check-circle"></i> English Proficiency</li>
-<li><i class="fas fa-check-circle"></i> Reasoning & Aptitude</li>
-<li><i class="fas fa-check-circle"></i> Interview Preparation</li>
-</ul>
-</div>
-
-<a class="btn-action" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20to%20enroll%20in%20Banking%20Excellence%20course" target="_blank">
-<i class="fas fa-whatsapp"></i> Enroll Now
-</a>
-</div>
-
-<!-- RRB CARD -->
-<div class="course-card rrb-card">
-<div class="gov-logo-wrap">
-<svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M 30 30 L 50 15 L 70 30 L 70 70 L 30 70 Z" fill="none" stroke="#DC2626" stroke-width="2"/>
-<circle cx="50" cy="50" r="12" fill="none" stroke="#DC2626" stroke-width="1.5"/>
-<line x1="50" y1="38" x2="50" y2="62" stroke="#DC2626" stroke-width="1"/>
-</svg>
-</div>
-<span class="badge rrb-badge">Railway Board Recruitment</span>
-<h3>RRB Preparation</h3>
-<p>Dedicated coaching for RRB NTPC, RRB Group D, and other railway exams. Technical excellence in all sections.</p>
-
-<div class="syllabus-box">
-<ul>
-<li><i class="fas fa-check-circle"></i> Railway System Knowledge</li>
-<li><i class="fas fa-check-circle"></i> Mathematics & Reasoning</li>
-<li><i class="fas fa-check-circle"></i> General Science & Tech</li>
-<li><i class="fas fa-check-circle"></i> English & Hindi Bilingual</li>
-<li><i class="fas fa-check-circle"></i> Practical Problem Solving</li>
-</ul>
-</div>
-
-<a class="btn-action" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20to%20enroll%20in%20RRB%20Preparation%20course" target="_blank">
-<i class="fas fa-whatsapp"></i> Enroll Now
-</a>
-</div>
-
-</div>
+  <h2 class="section-title">Our Top Courses</h2>
+  <div class="course-grid">
+    <div class="course-card ssc-card">
+      <div class="gov-logo-wrap"><span class="gov-logo-text">SSC</span></div>
+      <span class="badge ssc-badge">Staff Selection Commission</span>
+      <h3>SSC Exam Coaching</h3>
+      <p>Bilingual training, personalized mentoring and mock tests. Crystallize your dream of becoming a central government officer.</p>
+      <div class="syllabus-box">
+        <ul>
+          <li><i class="fas fa-check"></i> Arithmetic, Reasoning, English & General Knowledge</li>
+          <li><i class="fas fa-check"></i> Test Papers, Current Affairs</li>
+        </ul>
+      </div>
+    </div>
+    <div class="course-card rrb-card">
+      <div class="gov-logo-wrap"><span class="gov-logo-text">RRB</span></div>
+      <span class="badge rrb-badge">Railway Recruitment Board</span>
+      <h3>RRB Exam Coaching</h3>
+      <p>Focused training for all RRB exams—technical and non-technical. Tamil & English fully supported!</p>
+      <div class="syllabus-box">
+        <ul>
+          <li><i class="fas fa-check"></i> Math, Reasoning, Science fundamentals</li>
+          <li><i class="fas fa-check"></i> Group Discussions & Interviews</li>
+        </ul>
+      </div>
+    </div>
+    <div class="course-card banking-card">
+      <div class="gov-logo-wrap"><span class="gov-logo-text">BANK</span></div>
+      <span class="badge banking-badge">Bank PO & Clerk</span>
+      <h3>Banking Exam Coaching</h3>
+      <p>Crack IBPS, SBI, and other banking exams with systematic study plans and consistent mentoring.</p>
+      <div class="syllabus-box">
+        <ul>
+          <li><i class="fas fa-check"></i> Quantitative Aptitude, Reasoning, English</li>
+          <li><i class="fas fa-check"></i> Banking Awareness & Computer Skills</li>
+        </ul>
+      </div>
+    </div>
+    <div class="course-card affairs-card">
+      <div class="gov-logo-wrap"><span class="gov-logo-text">CA</span></div>
+      <span class="badge affairs-badge">Current Affairs & Updates</span>
+      <h3>Current Affairs</h3>
+      <p>Daily and monthly updates, PDFs, and audio notes. Exclusive Telegram access!</p>
+      <div class="syllabus-box">
+        <ul>
+          <li><i class="fas fa-check"></i> National & International News</li>
+          <li><i class="fas fa-check"></i> In-depth Analysis & Quizzes</li>
+        </ul>
+      </div>
+      <a class="btn-action" style="background:#4e77b6;" href="https://t.me/tryiteducations" target="_blank"><i class="fab fa-telegram-plane"></i> Join Telegram</a>
+    </div>
+    <div class="course-card editorial-card">
+      <div class="gov-logo-wrap"><span class="gov-logo-text">EDT</span></div>
+      <span class="badge editorial-badge">Daily Editorials</span>
+      <h3>Editorials</h3>
+      <p>Improve your English skills and critical thinking by following daily curated editorials and model answers.</p>
+      <div class="syllabus-box">
+        <ul>
+          <li><i class="fas fa-check"></i> Editorial Analysis</li>
+          <li><i class="fas fa-check"></i> Writing Practice & Feedback</li>
+        </ul>
+      </div>
+      <a class="btn-action" style="background:#4e77b6;" href="https://t.me/tryiteducations" target="_blank"><i class="fab fa-telegram-plane"></i> Join Telegram</a>
+    </div>
+  </div>
 </section>
 
-<!-- CURRENT AFFAIRS SECTION -->
-<section id="current-affairs">
-<h2 class="section-title">Current Affairs</h2>
-<div class="course-card affairs-card">
-<div class="gov-logo-wrap">
-<svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M 20 25 L 20 75 Q 20 80 25 80 L 75 80 Q 80 80 80 75 L 80 25 Q 80 20 75 20 L 25 20 Q 20 20 20 25" fill="none" stroke="#7C3AED" stroke-width="2"/>
-<line x1="30" y1="35" x2="70" y2="35" stroke="#7C3AED" stroke-width="1.5"/>
-<line x1="30" y1="45" x2="70" y2="45" stroke="#7C3AED" stroke-width="1.5"/>
-<line x1="30" y1="55" x2="60" y2="55" stroke="#7C3AED" stroke-width="1.5"/>
-<line x1="30" y1="65" x2="65" y2="65" stroke="#7C3AED" stroke-width="1.5"/>
-</svg>
-</div>
-<span class="badge affairs-badge">Daily Updated</span>
-<h3>Stay Current, Stay Smart</h3>
-<p>Comprehensive daily current affairs coverage designed specifically for competitive exams. National, international, sports, awards, and more - all curated for your success.</p>
-
-<div class="resource-section">
-<h4><i class="fas fa-cloud-download-alt"></i> Download Monthly Current Affairs (Updated Daily)</h4>
-<div class="resource-grid">
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_APRIL" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">April 2026</div>
-</a>
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_MARCH" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">March 2026</div>
-</a>
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_FEB" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">February 2026</div>
-</a>
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_JAN" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">January 2026</div>
-</a>
-</div>
-<div style="font-size: 0.85rem; color: #4A5568; margin-top: 15px; font-style: italic;">
-📌 Files are updated daily with latest current affairs & news updates
-</div>
-</div>
-
-<div class="syllabus-box">
-<ul>
-<li><i class="fas fa-check-circle"></i> National News & Policies</li>
-<li><i class="fas fa-check-circle"></i> International Relations</li>
-<li><i class="fas fa-check-circle"></i> Sports & Awards</li>
-<li><i class="fas fa-check-circle"></i> Science & Technology</li>
-<li><i class="fas fa-check-circle"></i> Banking & Economy Updates</li>
-<li><i class="fas fa-check-circle"></i> Important Dates & Events</li>
-</ul>
-</div>
-
-<a class="btn-action" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20current%20affairs%20preparation%20materials" target="_blank">
-<i class="fas fa-whatsapp"></i> Get Daily Updates
-</a>
-</div>
+<!-- ABOUT SECTION -->
+<section id="about">
+  <h2 class="section-title">About & Contact</h2>
+  <div style="max-width:560px;margin:0 auto 16px auto;text-align:center;">
+    <p>
+      <b>TryIt Educations</b> is a premium institution helping students and professionals achieve success in government, banking, and corporate fields. We empower you in your own mother-tongue, with strong bilingual coaching.
+    </p>
+    <div style="font-size:1.21rem;margin:16px 0;"><b style="font-size:1.18em;">WhatsApp:</b> <a href="https://wa.me/919566698821" style="color:#25D366;text-decoration:none;font-weight:700;">95666 98821</a></div>
+    <div style="font-size:1.18rem;margin-bottom:12px;"><b style="font-size:1.12em;">Mail:</b> <a href="mailto:tryiteducations@gmail.com" style="color:#0D1B3E;font-weight:700;">tryiteducations@gmail.com</a></div>
+  </div>
 </section>
 
-<!-- EDITORIALS SECTION -->
-<section id="editorials">
-<h2 class="section-title">Editorials & Analysis</h2>
-<div class="course-card editorial-card">
-<div class="gov-logo-wrap">
-<svg class="gov-logo-img" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-<path d="M 25 20 Q 20 20 20 25 L 20 75 Q 20 80 25 80 L 75 80 Q 80 80 80 75 L 80 25 Q 80 20 75 20" fill="none" stroke="#0D9488" stroke-width="2"/>
-<path d="M 35 35 Q 30 35 30 40 L 30 70 Q 30 75 35 75 L 65 75 Q 70 75 70 70 L 70 40 Q 70 35 65 35" fill="none" stroke="#0D9488" stroke-width="1.5"/>
-<circle cx="50" cy="50" r="8" fill="#0D9488"/>
-</svg>
-</div>
-<span class="badge editorial-badge">Expert Analysis</span>
-<h3>Master Editorial Writing & Reading</h3>
-<p>Deep analysis of important editorials from leading newspapers. Learn critical thinking, comprehension, and article writing skills for exam success.</p>
-
-<div class="resource-section">
-<h4><i class="fas fa-cloud-download-alt"></i> Download Editorial Collections (Updated Daily)</h4>
-<div class="resource-grid">
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_EDIT_APRIL" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">April 2026</div>
-</a>
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_EDIT_MARCH" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">March 2026</div>
-</a>
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_EDIT_FEB" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">February 2026</div>
-</a>
-<a href="https://drive.google.com/YOUR_GDRIVE_LINK_EDIT_JAN" target="_blank" class="resource-item">
-<div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
-<div class="resource-name">January 2026</div>
-</a>
-</div>
-<div style="font-size: 0.85rem; color: #4A5568; margin-top: 15px; font-style: italic;">
-📌 Editorial collections are updated daily with The Hindu & Indian Express analysis
-</div>
+<!-- SOCIAL BAR (CENTER) -->
+<div class="social-bar">
+  <a href="https://wa.me/919566698821" target="_blank"><div class="social-icon-ring si-wa"><i class="fab fa-whatsapp"></i></div><span class="social-label">WhatsApp</span></a>
+  <a href="https://t.me/tryiteducations" target="_blank"><div class="social-icon-ring si-tg"><i class="fab fa-telegram-plane"></i></div><span class="social-label">Telegram</span></a>
+  <a href="https://youtube.com/@tryiteducations" target="_blank"><div class="social-icon-ring si-yt"><i class="fab fa-youtube"></i></div><span class="social-label">YouTube</span></a>
+  <a href="https://instagram.com/tryiteducations" target="_blank"><div class="social-icon-ring si-ig"><i class="fab fa-instagram"></i></div><span class="social-label">Instagram</span></a>
 </div>
 
-<div class="syllabus-box">
-<ul>
-<li><i class="fas fa-check-circle"></i> The Hindu & Indian Express Analysis</li>
-<li><i class="fas fa-check-circle"></i> Political & Economic Editorials</li>
-<li><i class="fas fa-check-circle"></i> Social & Environmental Issues</li>
-<li><i class="fas fa-check-circle"></i> Comprehension Building Techniques</li>
-<li><i class="fas fa-check-circle"></i> Vocabulary Expansion</li>
-<li><i class="fas fa-check-circle"></i> Article Writing Practice</li>
-</ul>
+<!-- FLOATING SOCIAL BAR (DESKTOP) -->
+<div class="float-social">
+  <a href="https://wa.me/919566698821" class="fs-wa" target="_blank"><i class="fab fa-whatsapp"></i> <span class="fs-label">WhatsApp</span></a>
+  <a href="https://t.me/tryiteducations" class="fs-tg" target="_blank"><i class="fab fa-telegram-plane"></i> <span class="fs-label">Telegram</span></a>
+  <a href="https://youtube.com/@tryiteducations" class="fs-yt" target="_blank"><i class="fab fa-youtube"></i> <span class="fs-label">YouTube</span></a>
+  <a href="https://instagram.com/tryiteducations" class="fs-ig" target="_blank"><i class="fab fa-instagram"></i> <span class="fs-label">Instagram</span></a>
 </div>
-
-<a class="btn-action" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20want%20editorial%20analysis%20materials" target="_blank">
-<i class="fas fa-whatsapp"></i> Start Learning
-</a>
-</div>
-</section>
 
 <!-- FOOTER -->
-<footer id="contact">
-<h3>TryIt Educations</h3>
-<p>Premium Government Exam Coaching in Karur</p>
-<p>Transform your dreams into reality with expert guidance</p>
-
-<div class="social-bar">
-<a href="https://wa.me/919566698821" target="_blank">
-<div class="social-icon-ring si-wa">
-<i class="fab fa-whatsapp"></i>
-</div>
-<span class="social-label">WhatsApp</span>
-</a>
-<a href="https://t.me/tryiteducations" target="_blank">
-<div class="social-icon-ring si-tg">
-<i class="fab fa-telegram"></i>
-</div>
-<span class="social-label">Telegram</span>
-</a>
-<a href="https://youtube.com/@tryiteducations" target="_blank">
-<div class="social-icon-ring si-yt">
-<i class="fab fa-youtube"></i>
-</div>
-<span class="social-label">YouTube</span>
-</a>
-<a href="https://instagram.com/tryiteducations" target="_blank">
-<div class="social-icon-ring si-ig">
-<i class="fab fa-instagram"></i>
-</div>
-<span class="social-label">Instagram</span>
-</a>
-</div>
-
-<p style="margin-top: 50px; font-size: 0.9rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px;">
-© 2026 TryIt Educations. All Rights Reserved. | Bilingual Coaching for Government Exams
-</p>
+<footer>
+  <h3>Ready to Begin Your Journey?</h3>
+  <p>Contact us today – let's build your success story.<br>© 2024 TryIt Educations.</p>
+  <div style="font-size:0.82rem;opacity:0.85;color:#c1c9d2;">Website by TryIt Educations Team</div>
 </footer>
-
-<!-- FLOATING SOCIAL SIDEBAR -->
-<div class="float-social">
-<a class="fs-wa" href="https://wa.me/919566698821?text=Hi%20TryIt%20Educations,%20I%20have%20a%20query" target="_blank">
-<i class="fab fa-whatsapp"></i>
-<span class="fs-label">WhatsApp</span>
-</a>
-<a class="fs-tg" href="https://t.me/tryiteducations" target="_blank">
-<i class="fab fa-telegram"></i>
-<span class="fs-label">Telegram</span>
-</a>
-<a class="fs-yt" href="https://youtube.com/@tryiteducations" target="_blank">
-<i class="fab fa-youtube"></i>
-<span class="fs-label">YouTube</span>
-</a>
-<a class="fs-ig" href="https://instagram.com/tryiteducations" target="_blank">
-<i class="fab fa-instagram"></i>
-<span class="fs-label">Instagram</span>
-</a>
-</div>
-
 </body>
 </html>
